@@ -41,6 +41,15 @@ export const metadata: Metadata = {
     'Go to market engineering and revenue operations for climate technology companies.',
 }
 
+/* Items with no href are not built yet. They render as plain text with a
+   marker rather than as links to a placeholder page, so nothing 404s and no
+   thin page gets indexed. Add the href when the page ships. */
+const navItems: { label: string; href?: string }[] = [
+  { label: 'Work', href: '/work' },
+  { label: 'Method' },
+  { label: 'About' },
+]
+
 export default function RootLayout({
   children,
 }: {
@@ -57,6 +66,22 @@ export default function RootLayout({
             <Link className="mark" href="/">
               Purview <span>Ops</span>
             </Link>
+
+            <nav className="nav" aria-label="Main">
+              {navItems.map((item) =>
+                item.href ? (
+                  <Link href={item.href} key={item.label}>
+                    {item.label}
+                  </Link>
+                ) : (
+                  <span className="navSoon" key={item.label}>
+                    {item.label}
+                    <i>soon</i>
+                  </span>
+                )
+              )}
+            </nav>
+
             <Link className="btn" href={CTA_HREF}>
               {CTA_LABEL}
             </Link>

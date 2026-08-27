@@ -108,12 +108,86 @@ header {
   border-bottom: 1px solid var(--rule);
 }
 
+/* Wordmark left, nav and CTA right. margin-right:auto on the wordmark rather
+   than justify-content:space-between, which would centre the nav.
+
+   Below 48rem the nav wraps to its own row under the wordmark. Three items
+   fit in a plain row at 320, so there is no drawer and no hamburger. */
 .bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 0;
+  gap: 0.5rem 1.75rem;
+  padding: 0.75rem 0;
+}
+
+.nav {
+  order: 3;
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav a,
+.navSoon {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* Green means you can go there, muted means not yet. The colour is the
+   information, which is the only job it has on this site. */
+.nav a {
+  color: var(--green);
+}
+
+.navSoon {
+  color: var(--muted);
+}
+
+.navSoon i {
+  font-style: normal;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  margin-left: 0.4rem;
+  opacity: 0.75;
+}
+
+/* At 320 the wordmark and the CTA together need more than the 265px of
+   content width available, so the CTA wraps to a third row and the header
+   grows to 163px. Both come down a step instead. The CTA keeps its 44px
+   tap target and its label is unchanged. */
+@media (max-width: 48rem) {
+  .bar {
+    column-gap: 0.75rem;
+  }
+
+  .mark {
+    font-size: 1.15rem;
+  }
+
+  header .btn {
+    font-size: 0.8rem;
+    padding: 0.55rem 0.85rem;
+  }
+}
+
+@media (min-width: 48rem) {
+  .bar {
+    padding: 1rem 0;
+  }
+
+  .nav {
+    order: 0;
+    flex-basis: auto;
+  }
 }
 
 .mark {
@@ -122,6 +196,8 @@ header {
   letter-spacing: -0.02em;
   color: var(--ink);
   text-decoration: none;
+  /* Pushes the nav and CTA right without centring the nav. */
+  margin-right: auto;
 }
 
 /* The one place the second word of the wordmark takes the accent. */
@@ -160,11 +236,18 @@ section {
   border-top: 1px solid var(--rule);
 }
 
-/* The header is sticky and 77px tall, so an anchored section arriving at
-   top 0 lands underneath it. Applies to the work page stages and to #audit
-   on the home page. */
+/* The header is sticky, so an anchored section arriving at top 0 lands
+   underneath it. Below 48rem the nav sits on its own row and the header is
+   about 120px rather than 77px, so the margin has to clear the taller one.
+   Applies to the work page stages and to #audit on the home page. */
 section[id] {
-  scroll-margin-top: 6rem;
+  scroll-margin-top: 9rem;
+}
+
+@media (min-width: 48rem) {
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
 }
 
 section:first-of-type {

@@ -1,0 +1,547 @@
+/* ==========================================================================
+   Purview Ops — design system
+   Tokens and layout primitives. Mobile first: single column is the base
+   declaration, the two column grid is the override at 56rem.
+   ========================================================================== */
+
+:root {
+  /* Required. Without it, devices in dark mode invert the palette.
+     There is no dark theme and there should not be one. */
+  color-scheme: light;
+
+  --base: #faf8f5;
+  --surface: #ffffff;
+  --ink: #141613;
+  --muted: #5c605a;
+  --rule: #ddd8d0;
+  --green: #22402f;
+  --green-soft: #e8ede9;
+
+  /* --font-* are injected by next/font in app/layout.tsx */
+  --serif: var(--font-serif), Georgia, serif;
+  --sans: var(--font-sans), system-ui, sans-serif;
+  --mono: var(--font-mono), ui-monospace, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--base);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 6.5vw, 4.2rem);
+}
+
+h2 {
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+}
+
+h3 {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* The short reading line. This is what replaces centering, so it is set
+   on the element rather than on a wrapper. */
+p {
+  margin: 0 0 1.1rem;
+  max-width: 60ch;
+}
+
+a {
+  color: var(--green);
+}
+
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Shell — content anchored left, right margin left open on purpose
+   -------------------------------------------------------------------------- */
+
+.shell {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 48rem) {
+  .shell {
+    padding: 0 1.25rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--base);
+  border-bottom: 1px solid var(--rule);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.mark {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+
+/* The one place the second word of the wordmark takes the accent. */
+.mark span {
+  color: var(--green);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--base);
+  background: var(--green);
+  text-decoration: none;
+  border-radius: 2px;
+}
+
+.btn.big {
+  font-size: 0.95rem;
+  padding: 0.85rem 1.6rem;
+}
+
+/* --------------------------------------------------------------------------
+   Section rows — the 9rem mono label column and the content column
+   The .shell IS the grid container, so the content column's left edge lands
+   at the same x in every section. That repeated edge is the page's spine.
+   -------------------------------------------------------------------------- */
+
+section {
+  padding: 5rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+section:first-of-type {
+  border-top: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  /* Optical, not structural. Mono at 0.72rem has a far smaller cap height
+     than a Fraunces h2, so aligning the boxes leaves the label sitting high. */
+  padding-top: 0.35rem;
+}
+
+@media (min-width: 56rem) {
+  section {
+    padding: 6rem 0;
+  }
+
+  .row {
+    grid-template-columns: 9rem 1fr;
+    gap: 3rem;
+  }
+}
+
+/* Headline measures. Kept together so the wrap points can be tuned against
+   each other rather than one at a time. */
+.enemyTitle {
+  max-width: 20ch;
+  margin-bottom: 1.5rem;
+}
+.diffTitle {
+  max-width: 18ch;
+  margin-bottom: 2rem;
+}
+.stagesTitle {
+  max-width: 22ch;
+}
+.auditTitle {
+  margin-bottom: 0.5rem;
+}
+.closeTitle {
+  max-width: 16ch;
+  margin-bottom: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  padding: 6rem 0 5rem;
+  border-top: none;
+}
+
+.hero h1 {
+  max-width: 16ch;
+  margin-bottom: 1.75rem;
+}
+
+.sub {
+  font-size: 1.2rem;
+  color: var(--muted);
+  max-width: 44ch;
+  margin-bottom: 2.5rem;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: end;
+}
+
+@media (min-width: 64rem) {
+  .heroGrid {
+    grid-template-columns: 1.15fr 1fr;
+    gap: 4rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Hero diagram — one metric computed two ways, two different answers
+   -------------------------------------------------------------------------- */
+
+.viz {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  border-radius: 2px;
+  padding: 1.5rem;
+}
+
+.vizhead {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.vizrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.vizrow:last-of-type {
+  border-bottom: none;
+}
+
+.vizrow .k {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 22ch;
+}
+
+.vizrow .v {
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.vizrow .v.bad {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.vizrow .v.good {
+  color: var(--green);
+}
+
+.viznote {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: 1.1rem 0 0;
+  max-width: none;
+}
+
+/* --------------------------------------------------------------------------
+   Enemy — symptoms scan as rows, they do not read as a paragraph
+   -------------------------------------------------------------------------- */
+
+.symptoms {
+  border-top: 1px solid var(--rule);
+  margin-top: 2rem;
+}
+
+.symptom {
+  border-bottom: 1px solid var(--rule);
+  padding: 1.15rem 0;
+  font-size: 1.02rem;
+  max-width: 70ch;
+}
+
+.enemyClose {
+  margin-top: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   Numbered facts — rules and numerals, not cards
+   -------------------------------------------------------------------------- */
+
+.fact {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.fact:first-of-type {
+  border-top: 1px solid var(--rule);
+}
+
+.fact .n {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--green);
+  padding-top: 0.35rem;
+}
+
+.fact p {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Stage selector — the only cards on the page, and the only full bleed row
+   -------------------------------------------------------------------------- */
+
+.stagesHead {
+  margin-bottom: 2rem;
+}
+
+.stages {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 48rem) {
+  .stages {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 72rem) {
+  .stages {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  border-radius: 2px;
+  padding: 1.5rem;
+}
+
+.card h3 {
+  margin-bottom: 0.7rem;
+  line-height: 1.35;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin: 0 0 1.25rem;
+  max-width: none;
+}
+
+/* margin-top:auto pins the link to the bottom so links align across a row
+   regardless of how long the copy above them runs. */
+.card a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: auto;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--green);
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Audit
+   -------------------------------------------------------------------------- */
+
+.pricebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2rem;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  color: var(--green);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 1rem 0;
+  margin: 1.75rem 0 2rem;
+}
+
+.auditBody {
+  margin-top: 2.5rem;
+}
+
+.labelStandalone {
+  margin-top: 2.5rem;
+  padding-top: 0;
+}
+
+.checks {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+.checks li {
+  position: relative;
+  border-bottom: 1px solid var(--rule);
+  padding: 0.9rem 0 0.9rem 1.75rem;
+  max-width: 66ch;
+}
+
+/* A short green rule, not a bullet and not a checkmark. */
+.checks li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  width: 0.6rem;
+  height: 1px;
+  background: var(--green);
+}
+
+.callout {
+  background: var(--green-soft);
+  border-radius: 2px;
+  padding: 1.25rem 1.5rem;
+  margin-top: 2rem;
+}
+
+.callout p {
+  margin: 0;
+  max-width: 64ch;
+  font-size: 0.98rem;
+}
+
+/* --------------------------------------------------------------------------
+   Process strip — top border only, no boxes. The border flips from bottom
+   (stacked) to top (three up) so the strip reads as one rule across.
+   -------------------------------------------------------------------------- */
+
+.steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.step {
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.step .sn {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--green);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.step p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin: 0;
+  max-width: 32ch;
+}
+
+@media (min-width: 56rem) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+    border-top: none;
+  }
+
+  .step {
+    border-top: 1px solid var(--rule);
+    border-bottom: none;
+    padding: 1.4rem 1.75rem 1.4rem 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Close and footer
+   -------------------------------------------------------------------------- */
+
+.closeSub {
+  color: var(--muted);
+}
+
+.cta {
+  margin-top: 2rem;
+}
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 2.5rem 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}

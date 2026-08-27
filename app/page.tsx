@@ -1,8 +1,9 @@
-/* One CTA, repeated. Same label and same destination in the header, the hero,
-   the audit section and the close. When the intake form ships, this becomes
-   /intake and every button on the page follows. */
+import Link from 'next/link'
+import { CTA_LABEL } from './cta'
+
+/* Bare anchor rather than the shared /#audit, because the audit section is on
+   this page. Becomes /audit when that page ships. */
 const CTA_HREF = '#audit'
-const CTA_LABEL = 'Start with the audit'
 
 const symptoms = [
   'Leads nobody followed up on.',
@@ -18,29 +19,26 @@ const facts = [
   "And a first deal is a trial. It either works or you don't get the second one, which makes what happens after the close matter as much as the close.",
 ]
 
-/* href stays a placeholder until /work exists. The anchors are already
-   decided, so when that page lands these become /work#founder-led,
-   /work#post-raise, /work#blended-numbers and /work#expansion in order. */
 const stages = [
   {
     title: 'The founder still closes everything',
     body: "You have a handful of customers and most of what happened lives in one person's head. It works until it doesn't, usually around thirty or forty accounts, and by then there's no history to reconstruct.",
-    href: '#',
+    href: '/work#founder-led',
   },
   {
     title: "You raised on numbers you can't reproduce",
     body: 'The funnel math in the deck came from a spreadsheet someone built once. You have a real team now and nobody can rebuild it from the system. Meanwhile a lot of inbound never gets a first touch.',
-    href: '#',
+    href: '/work#post-raise',
   },
   {
     title: 'Every number is two things averaged together',
     body: "You finally have enough volume to compute win rate and cycle length, which means you finally have enough to compute them wrong. A utility deal and a corporate deal don't behave alike.",
-    href: '#',
+    href: '/work#blended-numbers',
   },
   {
     title: 'New logos are carrying too much',
     body: 'Your base is big enough that percentage growth slows on its own. Repeat business should be carrying more of it, and nothing separates that out so you can see how much it actually carries.',
-    href: '#',
+    href: '/work#expansion',
   },
 ]
 
@@ -62,19 +60,7 @@ const checks = [
 
 export default function Home() {
   return (
-    <>
-      <header>
-        <div className="shell bar">
-          <div className="mark">
-            Purview <span>Ops</span>
-          </div>
-          <a className="btn" href={CTA_HREF}>
-            {CTA_LABEL}
-          </a>
-        </div>
-      </header>
-
-      <main>
+    <main>
         {/* HERO — sits at the shell edge rather than on the label spine,
             because it does not use .row. */}
         <section className="hero">
@@ -176,7 +162,7 @@ export default function Home() {
                 <div className="card" key={stage.title}>
                   <h3>{stage.title}</h3>
                   <p>{stage.body}</p>
-                  <a href={stage.href}>See the work &rarr;</a>
+                  <Link href={stage.href}>See the work &rarr;</Link>
                 </div>
               ))}
             </div>
@@ -272,11 +258,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </main>
-
-      <footer>
-        <div className="shell">Purview Ops &nbsp;&middot;&nbsp; Denver, Colorado</div>
-      </footer>
-    </>
+    </main>
   )
 }

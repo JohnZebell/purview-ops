@@ -120,6 +120,8 @@ header {
   font-family: var(--serif);
   font-size: 1.35rem;
   letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
 }
 
 /* The one place the second word of the wordmark takes the accent. */
@@ -156,6 +158,13 @@ header {
 section {
   padding: 5rem 0;
   border-top: 1px solid var(--rule);
+}
+
+/* The header is sticky and 77px tall, so an anchored section arriving at
+   top 0 lands underneath it. Applies to the work page stages and to #audit
+   on the home page. */
+section[id] {
+  scroll-margin-top: 6rem;
 }
 
 section:first-of-type {
@@ -540,6 +549,87 @@ section:first-of-type {
     border-bottom: none;
     padding: 1.4rem 1.75rem 1.4rem 0;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Work page
+
+   Six labelled parts per stage. The labels reuse the mono label treatment
+   but sit inside the content column rather than the 9rem spine, because
+   half of them wrap to two lines at that width and a mix of one and two
+   line labels is what made the home page label read as broken.
+
+   Separation budget, so the levels do not compete. Rules mean stage
+   boundaries, hairlines mean list items, whitespace means sub-part.
+   -------------------------------------------------------------------------- */
+
+.introTitle {
+  max-width: 18ch;
+  margin-bottom: 1.5rem;
+}
+
+.stageTitle {
+  max-width: 24ch;
+  margin-bottom: 0;
+}
+
+/* Semantically an h3, visually the established label. Keeps the hierarchy
+   three deep instead of four. */
+.subLabel {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  padding-top: 0;
+}
+
+/* Jump nav. Four anchored sections with no index would contradict the
+   intro, which tells the reader they are probably in a different one than
+   they think. */
+.jump {
+  border-top: 1px solid var(--rule);
+  margin-top: 2rem;
+  max-width: 64ch;
+}
+
+.jump a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--green);
+  text-decoration: none;
+}
+
+/* What we do. The bold opener is a run-in, not a heading, so the item list
+   scans without earning a fourth type treatment. */
+/* Two measures on purpose. The rules sit at 64ch so they end near the text
+   instead of running the full column, and the text inside stays at the same
+   60ch as the prose around it, so the run-in list does not read as a wider
+   column than the paragraphs above and below it. */
+.doList {
+  border-top: 1px solid var(--rule);
+  max-width: 64ch;
+}
+
+.doItem {
+  border-bottom: 1px solid var(--rule);
+  padding: 1.15rem 0;
+}
+
+.doItem p {
+  margin: 0;
+  max-width: 60ch;
+}
+
+.doItem p + p {
+  margin-top: 0.9rem;
+}
+
+/* What this does not include. Footnote weight without a new level. */
+.excluded {
+  color: var(--muted);
 }
 
 /* --------------------------------------------------------------------------

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google'
+import { CTA_HREF, CTA_LABEL } from './cta'
 import './globals.css'
 
 /* Self hosted at build time by next/font, so there is no request to a font
@@ -31,7 +33,10 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Purview Ops',
+  title: {
+    default: 'Purview Ops',
+    template: '%s — Purview Ops',
+  },
   description:
     'Go to market engineering and revenue operations for climate technology companies.',
 }
@@ -46,7 +51,26 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <header>
+          <div className="shell bar">
+            <Link className="mark" href="/">
+              Purview <span>Ops</span>
+            </Link>
+            <Link className="btn" href={CTA_HREF}>
+              {CTA_LABEL}
+            </Link>
+          </div>
+        </header>
+
+        {children}
+
+        <footer>
+          <div className="shell">
+            Purview Ops &nbsp;&middot;&nbsp; Denver, Colorado
+          </div>
+        </footer>
+      </body>
     </html>
   )
 }

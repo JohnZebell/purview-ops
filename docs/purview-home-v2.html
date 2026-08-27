@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Purview Ops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+    --base:#FAF8F5;
+    --surface:#FFFFFF;
+    --ink:#141613;
+    --muted:#5C605A;
+    --rule:#DDD8D0;
+    --green:#22402F;
+    --green-soft:#E8EDE9;
+    --serif:'Fraunces',Georgia,serif;
+    --sans:'Inter',system-ui,sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--base);color:var(--ink);
+    font-family:var(--sans);font-size:1.0625rem;line-height:1.6;
+  }
+  h1,h2{font-family:var(--serif);font-weight:400;letter-spacing:-0.02em;line-height:1.1;margin:0}
+  h1{font-size:clamp(2.4rem,6.5vw,4.2rem)}
+  h2{font-size:clamp(1.6rem,3.4vw,2.4rem)}
+  h3{font-family:var(--sans);font-size:1rem;font-weight:500;margin:0}
+  p{margin:0 0 1.1rem;max-width:60ch}
+  .mono{font-family:var(--mono)}
+
+  /* ---- shell: content anchored left, generous right margin ---- */
+  .shell{max-width:76rem;margin:0 auto;padding:0 2rem}
+  @media (max-width:48rem){ .shell{padding:0 1.25rem} }
+
+  /* ---- header ---- */
+  header{border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--base);z-index:10}
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:1rem 0}
+  .mark{font-family:var(--serif);font-size:1.35rem;letter-spacing:-0.02em}
+  .mark i{font-style:normal;color:var(--green)}
+  .btn{display:inline-block;font-size:0.9rem;font-weight:500;color:var(--base);background:var(--green);
+       padding:0.6rem 1.1rem;text-decoration:none;border-radius:2px;min-height:44px;line-height:1.9}
+  .btn.big{font-size:0.95rem;padding:0.85rem 1.6rem;line-height:1.6}
+
+  /* ---- sections: label left, content right ---- */
+  section{padding:5rem 0;border-top:1px solid var(--rule)}
+  section:first-of-type{border-top:none}
+  .row{display:grid;grid-template-columns:1fr;gap:1.5rem}
+  .label{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;
+         color:var(--muted);padding-top:0.35rem}
+  @media (min-width:56rem){
+    .row{grid-template-columns:9rem 1fr;gap:3rem}
+    section{padding:6rem 0}
+  }
+
+  /* ---- hero ---- */
+  .hero{padding:6rem 0 5rem;border:none}
+  .hero h1{max-width:16ch;margin-bottom:1.75rem}
+  .hero .sub{font-size:1.2rem;color:var(--muted);max-width:44ch;margin-bottom:2.5rem}
+  .heroGrid{display:grid;grid-template-columns:1fr;gap:3rem;align-items:end}
+  @media (min-width:64rem){ .heroGrid{grid-template-columns:1.15fr 1fr;gap:4rem} }
+
+  /* ---- DIAGRAM SLOT: the "same number, two answers" visual ---- */
+  .viz{border:1px solid var(--rule);background:var(--surface);border-radius:2px;padding:1.5rem}
+  .viz .vizhead{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
+                color:var(--muted);margin-bottom:1.25rem}
+  .vizrow{display:flex;justify-content:space-between;align-items:baseline;
+          padding:0.85rem 0;border-bottom:1px solid var(--rule)}
+  .vizrow:last-child{border-bottom:none}
+  .vizrow .k{font-size:0.9rem;color:var(--muted);max-width:22ch}
+  .vizrow .v{font-family:var(--mono);font-size:1.5rem;letter-spacing:-0.02em}
+  .vizrow .v.bad{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+  .vizrow .v.good{color:var(--green)}
+  .viznote{font-size:0.82rem;color:var(--muted);margin:1.1rem 0 0;max-width:none}
+
+  /* ---- enemy list ---- */
+  .symptoms{border-top:1px solid var(--rule);margin-top:2rem}
+  .symptom{border-bottom:1px solid var(--rule);padding:1.15rem 0;font-size:1.02rem;max-width:70ch}
+
+  /* ---- numbered facts ---- */
+  .fact{display:grid;grid-template-columns:2.25rem 1fr;gap:1rem;
+        padding:1.5rem 0;border-bottom:1px solid var(--rule)}
+  .fact:first-child{border-top:1px solid var(--rule)}
+  .fact .n{font-family:var(--mono);font-size:0.78rem;color:var(--green);padding-top:0.35rem}
+  .fact p{margin:0}
+
+  /* ---- stage cards ---- */
+  .stages{display:grid;grid-template-columns:1fr;gap:1rem}
+  @media (min-width:48rem){ .stages{grid-template-columns:1fr 1fr;gap:1.25rem} }
+  @media (min-width:72rem){ .stages{grid-template-columns:repeat(4,1fr)} }
+  .card{border:1px solid var(--rule);background:var(--surface);padding:1.5rem;border-radius:2px;
+        display:flex;flex-direction:column}
+  .card h3{margin-bottom:0.7rem;line-height:1.35}
+  .card p{font-size:0.95rem;color:var(--muted);margin:0 0 1.25rem;max-width:none}
+  .card a{margin-top:auto;font-family:var(--mono);font-size:0.78rem;color:var(--green);text-decoration:none}
+
+  /* ---- audit ---- */
+  .pricebar{display:flex;flex-wrap:wrap;gap:0 2rem;font-family:var(--mono);font-size:0.95rem;
+            color:var(--green);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+            padding:1rem 0;margin:1.75rem 0 2rem}
+  ul.checks{list-style:none;padding:0;margin:1.5rem 0 2rem;border-top:1px solid var(--rule)}
+  ul.checks li{border-bottom:1px solid var(--rule);padding:0.9rem 0 0.9rem 1.75rem;position:relative;max-width:66ch}
+  ul.checks li:before{content:"";position:absolute;left:0;top:1.5rem;width:0.6rem;height:1px;background:var(--green)}
+  .callout{background:var(--green-soft);border-radius:2px;padding:1.25rem 1.5rem;margin-top:2rem}
+  .callout p{margin:0;max-width:64ch;font-size:0.98rem}
+
+  /* ---- process strip ---- */
+  .steps{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--rule)}
+  @media (min-width:56rem){ .steps{grid-template-columns:repeat(3,1fr);border-top:none} }
+  .step{padding:1.4rem 0;border-bottom:1px solid var(--rule)}
+  @media (min-width:56rem){
+    .step{border-top:1px solid var(--rule);border-bottom:none;padding:1.4rem 1.75rem 1.4rem 0}
+  }
+  .step .sn{font-family:var(--mono);font-size:0.72rem;color:var(--green);letter-spacing:0.1em;display:block;margin-bottom:0.5rem}
+  .step p{font-size:0.95rem;color:var(--muted);margin:0;max-width:32ch}
+
+  footer{border-top:1px solid var(--rule);padding:2.5rem 0;color:var(--muted);font-size:0.88rem}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="shell bar">
+    <div class="mark">Purview <i>Ops</i></div>
+    <a class="btn" href="#audit">Start with the audit</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="shell heroGrid">
+    <div>
+      <h1>Find out what your revenue data actually says.</h1>
+      <p class="sub">Go to market engineering and revenue operations for climate technology companies.</p>
+      <a class="btn big" href="#audit">Start with the audit</a>
+    </div>
+
+    <!-- DIAGRAM SLOT 1 -->
+    <div class="viz">
+      <div class="vizhead">Average sales cycle</div>
+      <div class="vizrow">
+        <div class="k">Counting only deals that closed</div>
+        <div class="v bad">64d</div>
+      </div>
+      <div class="vizrow">
+        <div class="k">Counting every deal you opened</div>
+        <div class="v good">171d</div>
+      </div>
+      <p class="viznote">Same data. One number is on a slide. The other is what is happening.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ENEMY -->
+<section>
+  <div class="shell row">
+    <div class="label">The problem</div>
+    <div>
+      <h2 style="max-width:20ch;margin-bottom:1.5rem">Your product is good. Your reps can sell.</h2>
+      <p>Something between those two facts is costing you deals and nobody can point at it.</p>
+      <div class="symptoms">
+        <div class="symptom">Leads nobody followed up on.</div>
+        <div class="symptom">Reps spending mornings researching instead of selling.</div>
+        <div class="symptom">A number in the dashboard that nobody quite believes.</div>
+        <div class="symptom">Leads you disqualified last quarter that would qualify today, sitting where nobody will look at them again.</div>
+      </div>
+      <p style="margin-top:2rem">None of that is a people problem. It is what happens when the systems underneath a sales team were built one piece at a time by whoever had a minute.</p>
+      <p><strong>We find where it is leaking and we fix it.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATOR -->
+<section>
+  <div class="shell row">
+    <div class="label">Why us</div>
+    <div>
+      <h2 style="max-width:18ch;margin-bottom:2rem">We know how your business actually works</h2>
+      <div class="fact"><div class="n">01</div><p>Your market is small enough to count. There are only so many companies that fit what you sell, which means you can know the real number instead of estimating it, and you can know who's in it.</p></div>
+      <div class="fact"><div class="n">02</div><p>Your customers don't all buy the same way. A utility, a developer, and a corporate sustainability team have almost nothing in common except that you sell to all three. Blending them into one pipeline number gives you an average that describes none of them.</p></div>
+      <div class="fact"><div class="n">03</div><p>A lot of what decides your timeline is public. Grant cycles, budget approvals, procurement calendars. Most of it is published somewhere before anyone announces anything.</p></div>
+      <div class="fact"><div class="n">04</div><p>And a first deal is a trial. It either works or you don't get the second one, which makes what happens after the close matter as much as the close.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE SELECTOR -->
+<section>
+  <div class="shell">
+    <div class="row" style="margin-bottom:2rem">
+      <div class="label">Where are you stuck</div>
+      <div><h2 style="max-width:22ch">Pick the one that sounds like your quarter</h2></div>
+    </div>
+    <div class="stages">
+      <div class="card">
+        <h3>The founder still closes everything</h3>
+        <p>You have a handful of customers and most of what happened lives in one person's head. It works until it doesn't, usually around thirty or forty accounts, and by then there's no history to reconstruct.</p>
+        <a href="#">See the work &rarr;</a>
+      </div>
+      <div class="card">
+        <h3>You raised on numbers you can't reproduce</h3>
+        <p>The funnel math in the deck came from a spreadsheet someone built once. You have a real team now and nobody can rebuild it from the system. Meanwhile a lot of inbound never gets a first touch.</p>
+        <a href="#">See the work &rarr;</a>
+      </div>
+      <div class="card">
+        <h3>Every number is two things averaged together</h3>
+        <p>You finally have enough volume to compute win rate and cycle length, which means you finally have enough to compute them wrong. A utility deal and a corporate deal don't behave alike.</p>
+        <a href="#">See the work &rarr;</a>
+      </div>
+      <div class="card">
+        <h3>Growth depends on logos you keep buying</h3>
+        <p>Your base is big enough that percentage growth slows on its own. Repeat business should be carrying more of it, and nothing separates that out so you can see how much it actually carries.</p>
+        <a href="#">See the work &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT -->
+<section id="audit">
+  <div class="shell row">
+    <div class="label">The offer</div>
+    <div>
+      <h2 style="margin-bottom:0.5rem">The RevOps Audit</h2>
+      <div class="pricebar">
+        <span>Two weeks</span><span>$1,000</span><span>Credited against month one</span>
+      </div>
+
+      <!-- DIAGRAM SLOT 2 -->
+      <div class="steps">
+        <div class="step"><span class="sn">01</span><p>You fill in a short intake doc. Where you think it is leaking, in your words.</p></div>
+        <div class="step"><span class="sn">02</span><p>Read only access. We run the checks against your real data.</p></div>
+        <div class="step"><span class="sn">03</span><p>A findings document. Every leak with a number on it, ordered by what to do first.</p></div>
+      </div>
+
+      <p style="margin-top:2.5rem">Most companies are running three versions of the same revenue engine. The one leadership thinks they built. The one written down in playbooks and CRM fields. And the one your team actually uses to get work done, which usually involves a spreadsheet somebody maintains by hand. The gap between those three is where most of this lives.</p>
+
+      <div class="label" style="margin-top:2.5rem">What we check</div>
+      <ul class="checks">
+        <li>Your actual market size, counted from the real list rather than the number on a slide from two years ago</li>
+        <li>Whether your ICP describes the customers you have actually won, or the ones you meant to</li>
+        <li>How many of your inbound leads got contacted at all, and how fast</li>
+        <li>Records sitting with no owner, or an owner who left</li>
+        <li>Your real sales cycle, counting the deals that stalled instead of only the ones that closed</li>
+        <li>Whether your win rate holds up when you split it by segment</li>
+        <li>How much of your team's week is spent fixing things that should have worked the first time</li>
+      </ul>
+
+      <div class="callout">
+        <p><strong>It is yours either way.</strong> If you never talk to us again, you can hand the findings to whoever fixes it.</p>
+      </div>
+
+      <p style="margin-top:2rem"><a class="btn big" href="#">Start with the audit</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- BOUNDARY -->
+<section>
+  <div class="shell row">
+    <div class="label">How we work</div>
+    <div>
+      <p>We build the systems and tell you what the data says. We don't run your revenue org or sit in your standups.</p>
+      <p>Recorded walkthroughs and writing. You get it on your schedule and you can forward it to whoever wasn't in the room. Meetings when you want one, never on a standing invite.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section>
+  <div class="shell row">
+    <div class="label"></div>
+    <div>
+      <h2 style="max-width:16ch;margin-bottom:1.25rem">Start with the audit</h2>
+      <p style="color:var(--muted)">Two weeks, $1,000, credited against your first month if you keep going. You get the findings either way.</p>
+      <p style="margin-top:1.5rem"><a class="btn big" href="#">Book the audit</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">Purview Ops &nbsp;·&nbsp; Denver, Colorado</div>
+</footer>
+
+</body>
+</html>

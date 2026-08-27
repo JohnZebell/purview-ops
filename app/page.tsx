@@ -1,9 +1,5 @@
 import Link from 'next/link'
-import { CTA_LABEL } from './cta'
-
-/* Bare anchor rather than the shared /#audit, because the audit section is on
-   this page. Becomes /audit when that page ships. */
-const CTA_HREF = '#audit'
+import { CTA_HREF, CTA_LABEL } from './cta'
 
 const symptoms = [
   'Leads nobody followed up on.',
@@ -71,9 +67,9 @@ export default function Home() {
                 Go to market engineering and revenue operations for climate
                 technology companies.
               </p>
-              <a className="btn big" href={CTA_HREF}>
+              <Link className="btn big" href={CTA_HREF}>
                 {CTA_LABEL}
-              </a>
+              </Link>
             </div>
 
             {/* Placeholder figures. Replace with real ones when available. */}
@@ -214,9 +210,9 @@ export default function Home() {
               </div>
 
               <div className="cta">
-                <a className="btn big" href={CTA_HREF}>
+                <Link className="btn big" href={CTA_HREF}>
                   {CTA_LABEL}
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -251,9 +247,9 @@ export default function Home() {
                 going. You get the findings either way.
               </p>
               <div className="cta">
-                <a className="btn big" href={CTA_HREF}>
+                <Link className="btn big" href={CTA_HREF}>
                   {CTA_LABEL}
-                </a>
+                </Link>
               </div>
             </div>
           </div>

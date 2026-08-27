@@ -180,9 +180,21 @@ section:first-of-type {
   padding-top: 0.35rem;
 }
 
+/* A section holding two paragraphs should not get the same padding as one
+   holding a seven item list. At 6rem the short sections measured 50 to 53
+   percent padding against 13 to 23 percent for the long ones, which is what
+   made the bottom of the page read as empty. */
+.tight {
+  padding: 3.5rem 0;
+}
+
 @media (min-width: 56rem) {
   section {
     padding: 6rem 0;
+  }
+
+  .tight {
+    padding: 4rem 0;
   }
 
   .row {
@@ -453,18 +465,21 @@ section:first-of-type {
 .checks li {
   position: relative;
   border-bottom: 1px solid var(--rule);
-  padding: 0.9rem 0 0.9rem 1.75rem;
+  padding: 0.9rem 0 0.9rem 1.25rem;
   max-width: 66ch;
 }
 
-/* A short green rule, not a bullet and not a checkmark. */
+/* A small filled square, not a bullet and not a checkmark. It was a short
+   horizontal rule, which next to a list of problems read as a minus sign.
+   Centred on the first line: top padding, plus half a line, less half the
+   square. */
 .checks li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 1.5rem;
-  width: 0.6rem;
-  height: 1px;
+  top: calc(0.9rem + 0.8em - 2px);
+  width: 4px;
+  height: 4px;
   background: var(--green);
 }
 

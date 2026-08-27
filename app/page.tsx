@@ -18,7 +18,9 @@ const facts = [
   "And a first deal is a trial. It either works or you don't get the second one, which makes what happens after the close matter as much as the close.",
 ]
 
-/* href stays a placeholder until /work exists with the matching anchors. */
+/* href stays a placeholder until /work exists. The anchors are already
+   decided, so when that page lands these become /work#founder-led,
+   /work#post-raise, /work#blended-numbers and /work#expansion in order. */
 const stages = [
   {
     title: 'The founder still closes everything',
@@ -36,7 +38,7 @@ const stages = [
     href: '#',
   },
   {
-    title: 'Growth depends on logos you keep buying',
+    title: 'New logos are carrying too much',
     body: 'Your base is big enough that percentage growth slows on its own. Repeat business should be carrying more of it, and nothing separates that out so you can see how much it actually carries.',
     href: '#',
   },
@@ -162,7 +164,7 @@ export default function Home() {
         <section>
           <div className="shell">
             <div className="row stagesHead">
-              <div className="label">Where are you stuck</div>
+              <div className="label">Your stage</div>
               <div>
                 <h2 className="stagesTitle">
                   Pick the one that sounds like your quarter
@@ -235,7 +237,7 @@ export default function Home() {
         </section>
 
         {/* BOUNDARY */}
-        <section>
+        <section className="tight">
           <div className="shell row">
             <div className="label">How we work</div>
             <div>
@@ -252,11 +254,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CLOSE — the empty label column is load bearing. Remove it and the
-            headline reflows into the 9rem column, off the spine. */}
-        <section>
+        {/* CLOSE */}
+        <section className="tight">
           <div className="shell row">
-            <div className="label" />
+            <div className="label">Next</div>
             <div>
               <h2 className="closeTitle">Start with the audit</h2>
               <p className="closeSub">

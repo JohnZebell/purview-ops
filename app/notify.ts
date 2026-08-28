@@ -95,7 +95,7 @@ function message(payload: Payload, rowId: string) {
   const domain = email.includes('@') ? email.split('@')[1] : '—'
   const band = str(payload, 'customer_band')
 
-  const row = `https://supabase.com/dashboard/project/vdrlqtivdcaephzuqhbp/editor`
+  const row = `https://supabase.com/dashboard/project/mpwhtwflbehvmhtcssdn/editor`
 
   const head = [
     '**New audit intake**',

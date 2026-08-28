@@ -9,14 +9,17 @@
    goes to the log instead, loudly and with the whole payload, because when the
    write fails that log line is the only surviving copy of the lead. */
 
+import { notifyIntake } from '../../notify'
+
 const TABLE = 'pv_intake_raw'
 
 export async function POST(request: Request) {
   let payload: unknown = null
+  let rowId: string | null = null
 
   try {
     payload = await request.json()
-    await capture(payload)
+    rowId = await capture(payload)
   } catch (error) {
     /* Everything that can go wrong lands here: a malformed body, missing
        config, Supabase down, a schema mismatch. All of it is recoverable by
@@ -32,6 +35,14 @@ export async function POST(request: Request) {
         JSON.stringify(payload, null, 2) +
         '\n=== END INTAKE CAPTURE FAILED ===\n',
     )
+  }
+
+  /* Only once the row exists. An alert about a lead that was not saved would
+     point at nothing, and the capture failure above is already loud. Kept
+     outside the try so a notifier problem can never be logged as a capture
+     problem. notifyIntake handles its own errors and does not throw. */
+  if (rowId) {
+    await notifyIntake(payload as Record<string, unknown>, rowId)
   }
 
   return Response.json({ ok: true })
@@ -79,4 +90,5 @@ async function capture(payload: unknown) {
 
   const [row] = await response.json()
   console.log(`[intake] captured ${row?.id} into ${TABLE}`)
+  return row?.id as string
 }

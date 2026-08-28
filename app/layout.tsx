@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Assistant from './Assistant'
 import { CTA_HREF, CTA_LABEL } from './cta'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from './seo'
 import './globals.css'
@@ -109,6 +110,9 @@ export default function RootLayout({
         {/* Renders nothing. Cookieless and first party, so it needs no consent
             banner, and it only reports once deployed on Vercel. */}
         <Analytics />
+
+        {/* Renders nothing until CHAT_WEBHOOK_URL is set in app/chat.ts. */}
+        <Assistant />
       </body>
     </html>
   )

@@ -1189,3 +1189,166 @@ footer {
   color: var(--muted);
   font-size: 0.88rem;
 }
+
+/* --------------------------------------------------------------------------
+   Site assistant
+
+   Bottom right, closed by default, and deliberately quiet. No notification
+   dot, no greeting bubble, nothing that opens on its own. Section 5 of
+   purview_assistant_spec.md: every one of those reads as a funnel.
+
+   The launcher and the send button are .btn, so they are the site's button
+   rather than a lookalike that drifts from it.
+   -------------------------------------------------------------------------- */
+.assistant {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.asstLauncher,
+.asstSend {
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+}
+
+.asstSend {
+  min-height: 0;
+  padding: 0 0.9rem;
+  font-size: 0.8rem;
+}
+
+.asstLauncher[disabled],
+.asstSend[disabled] {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* No shadow, per the design note. The rule does the separating. */
+.asstPanel {
+  display: flex;
+  flex-direction: column;
+  width: min(22rem, calc(100vw - 2.5rem));
+  height: min(30rem, calc(100vh - 7rem));
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+}
+
+.asstHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.asstHead h2,
+.asstHead button {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.asstHead button {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+}
+
+.asstLog {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.9rem;
+}
+
+.asstOpening {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0 0 1.1rem;
+}
+
+.asstUser,
+.asstReply {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0 0 0.9rem;
+  /* The model writes in paragraphs and the visitor may press shift-enter. */
+  white-space: pre-wrap;
+}
+
+.asstUser {
+  background: var(--green-soft);
+  border-radius: 2px;
+  padding: 0.5rem 0.7rem;
+}
+
+.asstNote,
+.asstFail {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.9rem;
+}
+
+.asstNote {
+  color: var(--muted);
+}
+
+.asstFail {
+  color: var(--ink);
+}
+
+.asstForm {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+
+.asstForm textarea {
+  flex: 1;
+  resize: none;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.5rem;
+}
+
+.asstForm textarea:focus,
+.assistant button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 1px;
+  border-color: var(--green);
+}
+
+/* Full width on a phone, where a 22rem panel pinned to one corner is most of
+   the screen anyway and the inset just wastes it. */
+@media (max-width: 30rem) {
+  .assistant {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    align-items: stretch;
+  }
+
+  .asstPanel {
+    width: auto;
+  }
+}

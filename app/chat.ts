@@ -6,12 +6,12 @@
    to n8n. The service role key and the n8n url both stay server side because
    of it.
 
-   Empty until n8n exists, and the widget renders nothing while it is empty.
-   Same rule as DISCORD_WEBHOOK_URL in app/notify.ts: set it and it appears,
-   leave it unset and it does not. An assistant that logs questions it cannot
-   answer is worse than no assistant, so this stays off until
-   N8N_CHAT_WEBHOOK_URL is set in the environment.
+   Set it back to '' and the widget renders nothing at all, which is how this
+   shipped before n8n existed. Same rule as DISCORD_WEBHOOK_URL in
+   app/notify.ts, and the switch to reach for if the assistant ever has to come
+   off the site without a rollback.
 
-   Turning it on is this one line: set it to '/api/chat'. Nothing else in the
-   widget has to change. */
-export const CHAT_WEBHOOK_URL = ''
+   An answer also needs N8N_CHAT_WEBHOOK_URL set in the environment. Without it
+   the route still records the question and returns a failure, which is the
+   ordering the whole thing is built around. */
+export const CHAT_WEBHOOK_URL = '/api/chat'

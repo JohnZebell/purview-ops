@@ -82,7 +82,7 @@ const stages: Stage[] = [
       {
         label: 'What changes',
         paras: [
-          'The market number stops being a guess. You get a count you can put in front of an investor and defend.',
+          'The market number stops being a guess. You get a count you can defend to anyone who asks.',
           'Founder hours come off list building, priced against what a founder hour is worth.',
           'And in a year, when someone asks a question about your first hundred customers, the answer exists.',
         ],
@@ -98,23 +98,25 @@ const stages: Stage[] = [
   },
 
   {
-    id: 'post-raise',
-    label: 'Post raise',
-    title: 'You raised on numbers you cannot reproduce',
+    id: 'unreproducible',
+    /* Was "Post raise", which assumed the reader raised money in exactly the
+       way the rest of this section was rewritten to stop doing. */
+    label: 'Funnel math',
+    title: 'Your funnel math lives in a spreadsheet',
     parts: [
       {
         label: 'What it is costing you',
         paras: [
           'At companies with no routing, roughly four out of five inbound records never receive a first touch. Not a slow touch. None.',
           'You paid to generate every one of those. Multiply your cost per lead by the ones nobody contacted and that is a number sitting on your P&L that nobody has ever calculated.',
-          'Then there is the second number. The funnel math you raised on came from a spreadsheet built once. Your next round gets measured against it, at a volume where it should now be computable from the system. Right now it is not.',
+          'Then there is the second number. The funnel math everyone quotes came from a spreadsheet built once. Every plan you make gets measured against it, at a volume where it should now be computable from the system. Right now it is not.',
         ],
       },
       {
         label: 'Why it happens',
         paras: [
           "Routing does not belong to anyone. Marketing's job ended when the lead arrived. Sales' job starts when someone assigns it. Nothing in between is on anyone's list.",
-          'The funnel math is the same shape. At the raise those numbers were assertions supported by anecdote, which was correct at the time. Nothing about raising required them to be measurable, only credible. So the instrumentation that would make them checkable never got built.',
+          'The funnel math is the same shape. Early on those numbers were assertions supported by anecdote, which was correct at the time. Nothing required them to be measurable, only credible. So the instrumentation that would make them checkable never got built.',
         ],
       },
       {
@@ -157,7 +159,7 @@ const stages: Stage[] = [
         paras: [
           'Percentage of inbound contacted, measured before and after. That one moves in weeks rather than quarters.',
           'Recovered pipeline from stranded and never-contacted records, with a dollar figure attached.',
-          'A funnel that reconciles. Which is the thing your next raise depends on and cannot be assembled retroactively, because stage timestamps only exist if the system was recording at the time.',
+          'A funnel that reconciles. That one cannot be assembled retroactively, because stage timestamps only exist if the system was recording at the time.',
         ],
       },
       {
@@ -185,7 +187,7 @@ const stages: Stage[] = [
         label: 'What it is costing you',
         paras: [
           'You have a win rate. It is an average across a utility deal and a corporate deal, which have almost nothing in common except that you sell to both.',
-          'The average moves. Sometimes it moves the right way for the wrong reason, like when one segment shrinks rather than the other improving. That happens often enough that nobody fully trusts the number, and everybody quotes it anyway, including in the board update.',
+          'The average moves. Sometimes it moves the right way for the wrong reason, like when one segment shrinks rather than the other improving. That happens often enough that nobody fully trusts the number, and everybody quotes it anyway, including in the numbers that go upstairs.',
           'The cost is every decision made from it. Where headcount goes. Which segment gets the marketing budget. What the forecast says.',
         ],
       },
@@ -237,7 +239,7 @@ const stages: Stage[] = [
         paras: [
           'Forecast variance, tracked by quarter, with the trend mattering more than any single number. That one metric tests whether stage definitions mean anything, whether reps report honestly, whether qualification discriminates, and whether leadership understands its own funnel. Any one of those broken shows up as variance.',
           'Consolidated tooling, stated annually. Most companies at this stage are paying three vendors for overlapping coverage and nobody has looked.',
-          'And a number in the board deck that traces to something.',
+          'And a headline number that traces back to something.',
         ],
       },
       {
@@ -266,7 +268,7 @@ const stages: Stage[] = [
         label: 'Why it happens',
         paras: [
           'Expansion has no owner in most companies. Sales is compensated on new logos. Customer success is compensated on retention. Expansion sits between them and gets whatever attention is left over.',
-          'And the instrumentation that would make it visible usually does not exist. If expansion ARR and new ARR are not separated in the system, then expansion share of growth, decomposed NRR, and expansion velocity are all uncomputable. One recording decision blocks four metrics.',
+          'And the instrumentation that would make it visible usually does not exist. If expansion revenue and new business revenue are not separated in the system, then expansion share of growth, retention decomposed by its parts, and expansion velocity are all uncomputable. One recording decision blocks four metrics.',
         ],
       },
       {

@@ -35,7 +35,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: {
     default: 'Purview Ops',
-    template: '%s — Purview Ops',
+    /* Middle dot, not an em dash. The copy rules ban em dashes and this
+       template was the only one left on the site, showing up in the tab and
+       in search results on every page but the home page. Matches the
+       separator the footer already uses. */
+    template: '%s · Purview Ops',
   },
   description:
     'Go to market engineering and revenue operations for climate technology companies.',

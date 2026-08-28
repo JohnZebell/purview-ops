@@ -138,7 +138,8 @@ export default function Method() {
             <p>
               This matters more here than in most industries because the cycles
               are long. A six month gap between the two numbers changes hiring
-              plans, cash forecasts, and what you tell a board.
+              plans, cash forecasts, and what you tell anyone who asks how the
+              business is doing.
             </p>
           </div>
         </div>

@@ -88,7 +88,7 @@ const situations = [
     body: "The problem is that nothing is being recorded, so the history that would answer next year's questions is not being captured. The work is a countable market and the five instrumentation decisions that cost nothing now and require backfilling later.",
   },
   {
-    lead: 'First revenue hires landed, and the numbers behind the raise cannot be reproduced.',
+    lead: 'First revenue hires landed, and nobody can reproduce the numbers everyone quotes.',
     body: 'The funnel math came from a spreadsheet built once. Inbound is arriving faster than anyone is routing it. The work is reconciling the stated numbers against the system, and building routing that handles its own failure cases.',
   },
   {

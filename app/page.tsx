@@ -22,9 +22,9 @@ const stages = [
     href: '/work#founder-led',
   },
   {
-    title: "You raised on numbers you can't reproduce",
-    body: 'The funnel math in the deck came from a spreadsheet someone built once. You have a real team now and nobody can rebuild it from the system. Meanwhile a lot of inbound never gets a first touch.',
-    href: '/work#post-raise',
+    title: 'Your funnel math lives in a spreadsheet',
+    body: "The numbers everyone quotes came from a spreadsheet someone built once. You have a real team now and nobody can rebuild them from the system. Meanwhile a lot of inbound never gets a first touch, because routing was never anyone's job.",
+    href: '/work#unreproducible',
   },
   {
     title: 'Every number is two things averaged together',
@@ -209,9 +209,11 @@ export default function Home() {
                 </p>
               </div>
 
+              {/* Its own label and destination, not an override of the CTA
+                  constant. Three audit CTAs remain: header, hero, close. */}
               <div className="cta">
-                <Link className="btn big" href={CTA_HREF}>
-                  {CTA_LABEL}
+                <Link className="btn big" href="/audit">
+                  See what we check
                 </Link>
               </div>
             </div>
@@ -232,6 +234,11 @@ export default function Home() {
                 and you can forward it to whoever wasn&apos;t in the room.
                 Meetings when you want one, never on a standing invite.
               </p>
+              <div className="cta">
+                <Link className="btn big" href="/method">
+                  How the diagnosis works
+                </Link>
+              </div>
             </div>
           </div>
         </section>

@@ -803,15 +803,26 @@ section:first-of-type {
 }
 
 /* Claim left, year right, so the dates line up into their own column and the
-   list can be read down either side. */
+   list can be read down either side. Centred rather than baseline aligned
+   because the claim is now a 44px tall link. */
 .creds li {
   display: flex;
   flex-wrap: wrap;
   gap: 0 1rem;
   justify-content: space-between;
-  align-items: baseline;
-  padding: 0.9rem 0;
+  align-items: center;
+  padding: 0.35rem 0;
   border-bottom: 1px solid var(--rule);
+}
+
+/* Underlined, like the other inline text links on the site. The mono year
+   beside it stays unlinked, so the column of dates reads as data rather than
+   as four more things to click. */
+.creds a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--green);
 }
 
 .credYear {

@@ -19,13 +19,35 @@ export const metadata: Metadata = {
   description: VALUE_PROPOSITION,
 }
 
-/* No verification URLs available yet. Build notes say certifications should
-   link to their verification pages, so these become links once those exist. */
+/* Each links to its own verification page, so the "all verifiable" claim on
+   this page is checkable rather than asserted. These also feed hasCredential
+   in the schema below, so the visible list and the structured data come from
+   one source. */
 const certifications = [
-  { name: 'HubSpot Marketing Hub Software Certified', year: '2026' },
-  { name: 'HubSpot Revenue Operations Certified', year: '2026' },
-  { name: 'HubSpot Reporting Certified', year: '2026' },
-  { name: 'SQL Certified, HackerRank', year: '2026' },
+  {
+    name: 'HubSpot Marketing Hub Software Certified',
+    year: '2026',
+    issuer: 'HubSpot Academy',
+    href: 'https://app-na2.hubspot.com/academy/achievements/0q0jpjqw/en/1/john-zebell/hubspot-marketing-hub-software',
+  },
+  {
+    name: 'HubSpot Revenue Operations Certified',
+    year: '2026',
+    issuer: 'HubSpot Academy',
+    href: 'https://app-na2.hubspot.com/academy/achievements/jqncmj73/en/1/john-zebell/revenue-operations',
+  },
+  {
+    name: 'HubSpot Reporting Certified',
+    year: '2026',
+    issuer: 'HubSpot Academy',
+    href: 'https://app-na2.hubspot.com/academy/achievements/82c4dgrx/en/1/john-zebell/hubspot-reporting',
+  },
+  {
+    name: 'SQL Certified, HackerRank',
+    year: '2026',
+    issuer: 'HackerRank',
+    href: 'https://www.hackerrank.com/certificates/f9377202dc3c',
+  },
 ]
 
 const publicWork = [
@@ -125,7 +147,22 @@ const organizationSchema = {
     '@type': 'Person',
     name: 'John Zebell',
     jobTitle: 'Revenue operations and go to market engineer',
+    /* Profiles of the entity, not claims about it. Certificates go in
+       hasCredential below. */
     sameAs: [LINKEDIN, GITHUB, PORTFOLIO],
+    /* On the founder rather than on the Organization, because these were
+       awarded to the person. HubSpot Academy issues to an individual and the
+       verification URLs say so, each one carrying /john-zebell/ in its path.
+       Organization.hasCredential would be a claim that Purview Ops holds the
+       certificate, which is a different and untrue statement. Built from the
+       same array as the visible list. */
+    hasCredential: certifications.map((cert) => ({
+      '@type': 'EducationalOccupationalCredential',
+      name: cert.name,
+      url: cert.href,
+      credentialCategory: 'certification',
+      recognizedBy: { '@type': 'Organization', name: cert.issuer },
+    })),
   },
   address: {
     '@type': 'PostalAddress',
@@ -217,7 +254,9 @@ export default function About() {
             <ul className="creds">
               {certifications.map((cert) => (
                 <li key={cert.name}>
-                  <span>{cert.name}</span>
+                  <a href={cert.href} rel="noopener" target="_blank">
+                    {cert.name}
+                  </a>
                   <span className="credYear">{cert.year}</span>
                 </li>
               ))}

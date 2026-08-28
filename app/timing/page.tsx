@@ -1,12 +1,13 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CTA_HREF, CTA_LABEL } from '../cta'
+import { pageMetadata } from '../seo'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Timing',
   description:
     'How institutional and utility purchases actually form, in order, and where each step appears in the public record before anyone issues an RFP.',
-}
+  path: '/timing',
+})
 
 /* Ordered by how early the step fires, not by how useful it is. The last row
    is the argument: everything above it happens before the thing most vendors

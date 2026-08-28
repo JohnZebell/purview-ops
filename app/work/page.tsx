@@ -1,12 +1,13 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CTA_HREF, CTA_LABEL } from '../cta'
+import { pageMetadata } from '../seo'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Our work',
   description:
     'Four ways revenue operations usually goes wrong in energy and environmental infrastructure, and what we build in each one.',
-}
+  path: '/work',
+})
 
 /* Every stage runs the same parts in the same order. Cost first, because the
    reader has to feel the number before they care about the fix.

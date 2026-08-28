@@ -1,5 +1,13 @@
 import Link from 'next/link'
 import { CTA_HREF, CTA_LABEL } from './cta'
+import { pageMetadata, SITE_DESCRIPTION } from './seo'
+
+/* No title. The home page takes the layout's default rather than running
+   through the `%s · Purview Ops` template and saying the name twice. */
+export const metadata = pageMetadata({
+  description: SITE_DESCRIPTION,
+  path: '/',
+})
 
 const symptoms = [
   'Leads nobody followed up on.',
@@ -79,10 +87,9 @@ export default function Home() {
           <div className="shell heroGrid">
             <div>
               <h1>Find out what your revenue data actually says.</h1>
-              <p className="sub">
-                Go to market engineering and revenue operations for energy
-                and environmental infrastructure.
-              </p>
+              {/* Same constant as the meta description and the social card,
+                  so the front door claim cannot drift between them. */}
+              <p className="sub">{SITE_DESCRIPTION}</p>
               <Link className="btn big" href={CTA_HREF}>
                 {CTA_LABEL}
               </Link>

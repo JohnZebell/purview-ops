@@ -1,12 +1,13 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CTA_HREF, CTA_LABEL } from '../cta'
+import { pageMetadata } from '../seo'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Method',
   description:
     'Six things we check for and why each one matters, including the survivorship correction on sales cycle, the three engines, and the separation test.',
-}
+  path: '/method',
+})
 
 const engines = [
   {

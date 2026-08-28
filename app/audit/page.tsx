@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
 import IntakeForm from './IntakeForm'
+import { pageMetadata } from '../seo'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'The RevOps Audit',
   description:
     'Two weeks. We tell you where your revenue is leaking and what each leak is worth.',
-}
+  path: '/audit',
+})
 
 const steps = [
   'You fill in a short intake doc. Where you think it is leaking, in your words. Send it to whoever on your team has an opinion, because the places they disagree are usually the interesting part.',

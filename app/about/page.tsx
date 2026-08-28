@@ -1,6 +1,6 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CTA_HREF, CTA_LABEL } from '../cta'
+import { pageMetadata, SITE_URL } from '../seo'
 
 /* The opening value proposition. Build notes say this should read identically
    here, on the LinkedIn company page and in any directory listing, because
@@ -14,10 +14,11 @@ const LINKEDIN = 'https://www.linkedin.com/in/john-zebell-iii-60b745163/'
 const GITHUB = 'https://github.com/JohnZebell'
 const PORTFOLIO = 'https://johnzebellportfolio.vercel.app'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'About',
   description: VALUE_PROPOSITION,
-}
+  path: '/about',
+})
 
 /* Each links to its own verification page, so the "all verifiable" claim on
    this page is checkable rather than asserted. These also feed hasCredential
@@ -135,16 +136,13 @@ const questions = [
   },
 ]
 
-/* www, not the apex. purviewops.com 308s to www.purviewops.com, so www is the
-   canonical host and the schema has to name the destination rather than the
-   redirect.
+/* url comes from the same constant as metadataBase and the sitemap, so the
+   schema cannot name a different host than the canonical tags do.
 
    Still no Organization-level `sameAs`. The profiles the practice has are the
    founder's, and they are on the Person below where they are true. An
    Organization `sameAs` pointing at a personal LinkedIn would be a claim that
    the profile represents the company. Add one if a company page ever exists. */
-const SITE_URL = 'https://www.purviewops.com'
-
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',

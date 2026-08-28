@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google'
 import { CTA_HREF, CTA_LABEL } from './cta'
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from './seo'
 import './globals.css'
 
 /* Self hosted at build time by next/font, so there is no request to a font
@@ -33,16 +34,19 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
+  /* Resolves every relative url in metadata: the canonical on each page, the
+     Open Graph url, and the generated card in app/og/route.tsx. Declared
+     once here so no page has to name the host. */
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Purview Ops',
+    default: SITE_NAME,
     /* Middle dot, not an em dash. The copy rules ban em dashes and this
        template was the only one left on the site, showing up in the tab and
        in search results on every page but the home page. Matches the
        separator the footer already uses. */
-    template: '%s · Purview Ops',
+    template: `%s · ${SITE_NAME}`,
   },
-  description:
-    'Go to market engineering and revenue operations for energy and environmental infrastructure.',
+  description: SITE_DESCRIPTION,
 }
 
 /* Items with no href are not built yet. They render as plain text with a

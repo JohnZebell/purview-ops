@@ -1090,6 +1090,11 @@ section:first-of-type {
   margin-bottom: 0.5rem;
 }
 
+.field label .req {
+  color: var(--ink);
+  margin-left: 0.15em;
+}
+
 .fieldHelp {
   font-size: 0.88rem;
   color: var(--muted);

@@ -40,16 +40,10 @@ const CRMS = [
   { value: 'not_sure', label: 'Not sure' },
 ]
 
-const REQUIRED = [
-  'firstname',
-  'lastname',
-  'email',
-  'website',
-  'what_they_sell',
-  'buyer_type',
-  'customer_band',
-  'crm',
-]
+/* Name and email only. Everything else on this form is something we can
+   establish ourselves during the audit, so blocking submission on it buys
+   nothing and costs leads. */
+const REQUIRED = ['firstname', 'lastname', 'email']
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -85,7 +79,14 @@ function Field({
 }) {
   return (
     <div className="field">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {REQUIRED.includes(name) && (
+          <span className="req" aria-hidden="true">
+            *
+          </span>
+        )}
+      </label>
       {help && (
         <p className="fieldHelp" id={`${name}-help`}>
           {help}
@@ -118,6 +119,9 @@ export default function IntakeForm() {
     id: name,
     name,
     value: values[name],
+    /* The asterisk is aria-hidden, so this is what actually tells a screen
+       reader the field is required. Both read REQUIRED, so they cannot drift. */
+    'aria-required': REQUIRED.includes(name) || undefined,
     'aria-invalid': errors[name] ? true : undefined,
     'aria-describedby':
       [errors[name] ? `${name}-error` : null, hasHelp ? `${name}-help` : null]

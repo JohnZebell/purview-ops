@@ -101,6 +101,10 @@ function message(payload: Payload, rowId: string) {
     .filter((part) => part !== '—')
     .join(' ')
 
+  /* customer_band is optional on the form, and str() already returns a dash
+     for a missing one, so collapse it rather than printing "—  (—)". */
+  const stage = band === '—' ? '—' : `${STAGE_LAYER[band] ?? '—'}  (${band})`
+
   const row = `https://supabase.com/dashboard/project/mpwhtwflbehvmhtcssdn/editor`
 
   const head = [
@@ -108,7 +112,7 @@ function message(payload: Payload, rowId: string) {
     '',
     `${str(payload, 'website')}  ·  ${domain}`,
     `From: ${name || '—'}`,
-    `Stage: ${STAGE_LAYER[band] ?? '—'}  (${band})`,
+    `Stage: ${stage}`,
     `Sells to: ${str(payload, 'buyer_type')}`,
     `CRM: ${str(payload, 'crm')}`,
     `Sells: ${str(payload, 'what_they_sell')}`,

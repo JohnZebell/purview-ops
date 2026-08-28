@@ -95,12 +95,19 @@ function message(payload: Payload, rowId: string) {
   const domain = email.includes('@') ? email.split('@')[1] : '—'
   const band = str(payload, 'customer_band')
 
+  /* Both are required by the form, but a payload predating them, or one that
+     did not come from the form, should read as a dash rather than "— —". */
+  const name = [str(payload, 'firstname'), str(payload, 'lastname')]
+    .filter((part) => part !== '—')
+    .join(' ')
+
   const row = `https://supabase.com/dashboard/project/mpwhtwflbehvmhtcssdn/editor`
 
   const head = [
     '**New audit intake**',
     '',
     `${str(payload, 'website')}  ·  ${domain}`,
+    `From: ${name || '—'}`,
     `Stage: ${STAGE_LAYER[band] ?? '—'}  (${band})`,
     `Sells to: ${str(payload, 'buyer_type')}`,
     `CRM: ${str(payload, 'crm')}`,

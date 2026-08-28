@@ -41,6 +41,8 @@ const CRMS = [
 ]
 
 const REQUIRED = [
+  'firstname',
+  'lastname',
   'email',
   'website',
   'what_they_sell',
@@ -54,6 +56,8 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 type Values = Record<string, string>
 
 const EMPTY: Values = {
+  firstname: '',
+  lastname: '',
   email: '',
   website: '',
   what_they_sell: '',
@@ -203,6 +207,14 @@ export default function IntakeForm() {
 
   return (
     <form className="intake" onSubmit={onSubmit} noValidate>
+      <Field name="firstname" label="First name" error={errors.firstname}>
+        <input type="text" autoComplete="given-name" {...bind('firstname')} />
+      </Field>
+
+      <Field name="lastname" label="Last name" error={errors.lastname}>
+        <input type="text" autoComplete="family-name" {...bind('lastname')} />
+      </Field>
+
       <Field name="email" label="Work email" error={errors.email}>
         <input
           type="email"

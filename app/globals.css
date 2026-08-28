@@ -716,6 +716,97 @@ section:first-of-type {
 }
 
 /* --------------------------------------------------------------------------
+   About page
+
+   Certifications and public work are the credibility block, so they scan as
+   lists rather than reading as prose.
+   -------------------------------------------------------------------------- */
+
+.aboutTitle {
+  margin-bottom: 1.5rem;
+}
+
+.creds,
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 64ch;
+  border-top: 1px solid var(--rule);
+}
+
+/* Claim left, year right, so the dates line up into their own column and the
+   list can be read down either side. */
+.creds li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.credYear {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.linkList li {
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.linkList a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--green);
+  text-decoration: none;
+}
+
+.linkList p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Questions
+
+   A definition list, because that is what a question and its answer are, and
+   it maps cleanly onto the FAQPage schema built from the same array.
+   -------------------------------------------------------------------------- */
+
+.faq {
+  margin: 0;
+  max-width: 64ch;
+  border-top: 1px solid var(--rule);
+}
+
+.faqItem {
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.faq dt {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.faq dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+.contact a {
+  color: var(--green);
+}
+
+/* --------------------------------------------------------------------------
    Audit page
    -------------------------------------------------------------------------- */
 

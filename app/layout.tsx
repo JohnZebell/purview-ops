@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import { CTA_HREF, CTA_LABEL } from './cta'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from './seo'
 import './globals.css'
@@ -104,6 +105,10 @@ export default function RootLayout({
             Purview Ops &nbsp;&middot;&nbsp; Denver, Colorado
           </div>
         </footer>
+
+        {/* Renders nothing. Cookieless and first party, so it needs no consent
+            banner, and it only reports once deployed on Vercel. */}
+        <Analytics />
       </body>
     </html>
   )

@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 import { ImageResponse } from 'next/og'
 import { OG_SIZE, SITE_DESCRIPTION, SITE_NAME } from '../seo'
 
@@ -26,28 +28,20 @@ const MUTED = '#5c605a'
 const RULE = '#ddd8d0'
 const GREEN = '#22402f'
 
-/* Satori needs real font data, so the faces come from Google Fonts at build
-   time rather than from next/font, which only emits files the browser can
-   reach. `text` subsets the download to the glyphs actually drawn, which keeps
-   both fetches small. */
-async function loadGoogleFont(family: string, weight: number, text: string) {
-  const url =
-    `https://fonts.googleapis.com/css2?family=${family}:wght@${weight}` +
-    `&text=${encodeURIComponent(text)}`
+/* Vendored, not fetched. These used to come from Google Fonts during the
+   build, which meant a deploy could fail because someone else's CDN was
+   unreachable, for a reason unrelated to anything that changed in the commit.
 
-  const css = await (await fetch(url)).text()
-  const src = css.match(/src: url\((.+?)\) format\('(opentype|truetype)'\)/)
-  if (!src) throw new Error(`No font data in the Google Fonts response for ${family}`)
-
-  const res = await fetch(src[1])
-  if (!res.ok) throw new Error(`Could not download ${family}: ${res.status}`)
-  return res.arrayBuffer()
-}
+   Read with process.cwd() rather than traced as an import, which is safe
+   because force-static means this handler only ever runs at build, where the
+   working directory is the project root. See fonts/README.md for provenance
+   and how to regenerate them. */
+const FONT_DIR = join(process.cwd(), 'app', 'og', 'fonts')
 
 export async function GET() {
   const [fraunces, inter] = await Promise.all([
-    loadGoogleFont('Fraunces', 400, SITE_NAME),
-    loadGoogleFont('Inter', 400, SITE_DESCRIPTION),
+    readFile(join(FONT_DIR, 'fraunces-400-subset.ttf')),
+    readFile(join(FONT_DIR, 'inter-400-subset.ttf')),
   ])
 
   const [first, second] = SITE_NAME.split(' ')

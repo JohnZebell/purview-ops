@@ -146,7 +146,7 @@ Do not render anything computed back to the screen.
 
 ### Failure state
 
-> Something went wrong on our end and your answers did not save. Email johnzeb22@gmail.com and we will pick it up from there.
+> Something went wrong on our end and your answers did not save. Email hello@purviewops.com and we will pick it up from there.
 
 Never fail silently on the visitor's side either.
 

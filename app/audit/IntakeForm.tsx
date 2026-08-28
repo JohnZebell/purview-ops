@@ -277,7 +277,7 @@ export default function IntakeForm() {
       {status === 'error' && (
         <p className="formFail" role="alert">
           Something went wrong on our end and your answers did not save. Email{' '}
-          <a href="mailto:johnzeb22@gmail.com">johnzeb22@gmail.com</a> and we
+          <a href="mailto:hello@purviewops.com">hello@purviewops.com</a> and we
           will pick it up from there.
         </p>
       )}

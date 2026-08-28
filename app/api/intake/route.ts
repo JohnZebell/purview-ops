@@ -1,13 +1,23 @@
 /* Capture-first intake capture.
 
-   One hop: write the raw payload to Supabase, return ok. No enrichment, no
-   HubSpot, no derived fields. Those are n8n's job, per section 7 of
+   One hop: write the raw payload to Supabase. No enrichment, no HubSpot, no
+   derived fields. Those are n8n's job, per section 7 of
    purview_hubspot_setup.md, and neither HubSpot nor n8n exists yet.
 
-   The visitor always gets ok. A failed write is our problem, not theirs, and
-   there is nothing they could do about it by seeing an error. So the failure
-   goes to the log instead, loudly and with the whole payload, because when the
-   write fails that log line is the only surviving copy of the lead. */
+   A failed write returns a real error, per section 2 of
+   purview_system_scope.md: never a silent failure on the user side either.
+
+   This route used to return ok regardless, on the reasoning that a failed
+   write is ours to fix rather than the visitor's. That reasoning is wrong in
+   this one place. Capture is the only step with no second copy. If the write
+   fails, the person who typed the answers is the last remaining record of
+   them, and telling them it saved is what destroys the lead. Every later step
+   in the pipeline can fail quietly precisely because step 2 already holds the
+   payload. Step 2 cannot.
+
+   So the visitor gets the truth and the form's failure branch gives them an
+   address to send it to. The log still gets the whole payload, because it is
+   the only copy on our side. */
 
 import { notifyIntake } from '../../notify'
 
@@ -22,8 +32,9 @@ export async function POST(request: Request) {
     rowId = await capture(payload)
   } catch (error) {
     /* Everything that can go wrong lands here: a malformed body, missing
-       config, Supabase down, a schema mismatch. All of it is recoverable by
-       hand from this line, and none of it is the visitor's to fix. */
+       config, Supabase down, a schema mismatch. The visitor cannot fix any of
+       it, but they are the only one still holding the answers, so they are
+       told rather than reassured. */
     console.error(
       '\n=== INTAKE CAPTURE FAILED ===\n' +
         'The submission below was NOT written to ' +
@@ -35,6 +46,11 @@ export async function POST(request: Request) {
         JSON.stringify(payload, null, 2) +
         '\n=== END INTAKE CAPTURE FAILED ===\n',
     )
+
+    /* The form throws on a non-ok response and shows its failure branch, which
+       names an address to send the answers to. Nothing after this runs: there
+       is no row to announce. */
+    return Response.json({ ok: false }, { status: 500 })
   }
 
   /* Only once the row exists. An alert about a lead that was not saved would

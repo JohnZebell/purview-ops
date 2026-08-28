@@ -135,13 +135,21 @@ const questions = [
   },
 ]
 
-/* No canonical url property yet, because there is no domain. Add `url` and an
-   Organization-level `sameAs` when the site is deployed. A wrong url in schema
-   is worse than an absent one. */
+/* www, not the apex. purviewops.com 308s to www.purviewops.com, so www is the
+   canonical host and the schema has to name the destination rather than the
+   redirect.
+
+   Still no Organization-level `sameAs`. The profiles the practice has are the
+   founder's, and they are on the Person below where they are true. An
+   Organization `sameAs` pointing at a personal LinkedIn would be a claim that
+   the profile represents the company. Add one if a company page ever exists. */
+const SITE_URL = 'https://www.purviewops.com'
+
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Purview Ops',
+  url: SITE_URL,
   description: VALUE_PROPOSITION,
   founder: {
     '@type': 'Person',

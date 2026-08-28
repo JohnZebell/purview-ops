@@ -162,4 +162,12 @@ Text only. "Purview" in ink, "Ops" in green, set in Fraunces at 1.3rem. No icon,
 - Every heading level in order, no skipped levels.
 - Contrast passes AA on `muted` text against `base`.
 - Fonts self-hosted or preloaded. No layout shift on load.
-- Total page weight under 200KB with no images.
+- Three font families, no more. No images.
+
+Page weight is no longer a numbered gate. The original 200KB figure was
+arbitrary, and fonts and JS cache across pages, so only the first page a
+visitor lands on pays for them. The constraints that remain are the two above.
+
+Do not hand-subset Inter to buy back kilobytes. Note also that pinning Inter to
+static weights in `next/font` saves nothing, since Google ships it only as a
+variable font and returns the same 47.3KB file either way.

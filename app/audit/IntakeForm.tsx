@@ -7,9 +7,11 @@ import { INTAKE_WEBHOOK_URL } from '../webhook'
    mapping is one to one when the pipeline gets wired.
 
    Select values are snake_case, not the display labels. customer_band and crm
-   are spelled out in the scope doc. buyer_type is not, so these seven are
-   derived and need checking against the real HubSpot dropdown before the
-   pipeline goes live. */
+   are spelled out in the scope doc. buyer_type is not, and these seven are now
+   the canonical values: when the HubSpot instance gets built, the pv_buyer_type
+   dropdown is built to match this list, not the other way round. Changing one
+   here means changing it in HubSpot too, and a mismatch fails silently, with
+   the write succeeding and the property coming back empty. */
 const BUYER_TYPES = [
   { value: 'developers_ipps', label: 'Developers and IPPs' },
   { value: 'utilities_public_power', label: 'Utilities and public power' },

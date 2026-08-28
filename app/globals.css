@@ -191,6 +191,12 @@ header {
 }
 
 .mark {
+  /* 44px tap target. It became a link when the header moved into the layout
+     and was sitting at 35px. Does not change the header height, because the
+     CTA beside it already sets a 44px floor. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-family: var(--serif);
   font-size: 1.35rem;
   letter-spacing: -0.02em;
@@ -880,7 +886,14 @@ section:first-of-type {
   color: var(--muted);
 }
 
+/* Sits on its own line under the name and location, so it is a standalone
+   control rather than a link inside a sentence, and it gets the 44px target.
+   The one in the method appendix stays inline, because forcing height on a
+   link mid sentence distorts the line it sits in. */
 .contact a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--green);
 }
 

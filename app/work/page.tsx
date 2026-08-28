@@ -5,7 +5,7 @@ import { CTA_HREF, CTA_LABEL } from '../cta'
 export const metadata: Metadata = {
   title: 'Our work',
   description:
-    'Four ways revenue operations usually goes wrong at a climate technology company, and what we build in each one.',
+    'Four ways revenue operations usually goes wrong in energy and environmental infrastructure, and what we build in each one.',
 }
 
 /* Every stage runs the same parts in the same order. Cost first, because the

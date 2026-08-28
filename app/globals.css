@@ -111,14 +111,20 @@ header {
 /* Wordmark left, nav and CTA right. margin-right:auto on the wordmark rather
    than justify-content:space-between, which would centre the nav.
 
-   Below 48rem the nav wraps to its own row under the wordmark. Three items
-   fit in a plain row at 320, so there is no drawer and no hamburger. */
+   Below 48rem the nav wraps to its own row under the wordmark. Four items
+   fit in a plain row at 320, measured at 255px of content in the 280px the
+   shell leaves, so there is no drawer and no hamburger. Adding a fifth is
+   what would force the question. */
 .bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem 1.75rem;
-  padding: 0.75rem 0;
+  /* padding-block, not the shorthand. This element is also the .shell, and a
+     shorthand here lands after .shell in the cascade and zeroes its inline
+     padding, which put the wordmark and the nav flush against the viewport
+     edge and clipped the CTA at 320. */
+  padding-block: 0.75rem;
 }
 
 .nav {
@@ -181,7 +187,7 @@ header {
 
 @media (min-width: 48rem) {
   .bar {
-    padding: 1rem 0;
+    padding-block: 1rem;
   }
 
   .nav {
@@ -774,6 +780,135 @@ section:first-of-type {
   font-size: 0.82rem;
   color: var(--green);
   text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Timing page — the sequence table
+
+   A real table above 48rem. Three columns of institutional record is tabular
+   data, and the comparison the page is making is across the lead time column,
+   which a list would break.
+
+   Below 48rem it stacks instead of scrolling sideways. The event becomes the
+   row heading and the other two cells become labelled key value pairs drawn
+   from data-label, so a row reads as one step in a sequence rather than as
+   three equal facts.
+
+   display:block drops the implicit table semantics from the accessibility
+   tree, so the roles are written out in the markup. Above 48rem they match
+   what the elements already are and change nothing.
+   -------------------------------------------------------------------------- */
+
+.seq {
+  width: 100%;
+  max-width: 64ch;
+  border-collapse: collapse;
+  margin: 0 0 2rem;
+  text-align: left;
+}
+
+.seq th,
+.seq td {
+  padding: 0.9rem 1.25rem 0.9rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+/* The column heads are the established mono label, not a fourth type level. */
+.seq thead th {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.seq tbody th {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 500;
+  padding-right: 2rem;
+}
+
+.seq td {
+  color: var(--muted);
+}
+
+/* Lead times read as figures against each other, so they are mono and they
+   do not wrap. This is the column the page is actually about. */
+.seq td:last-child {
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  white-space: nowrap;
+  padding-right: 0;
+}
+
+@media (max-width: 48rem) {
+  .seq,
+  .seq tbody,
+  .seq tr,
+  .seq th,
+  .seq td {
+    display: block;
+  }
+
+  /* Every cell carries its own label at this width, so the header row would
+     be read twice. */
+  .seq thead {
+    display: none;
+  }
+
+  .seq tr {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .seq tbody tr:first-child {
+    border-top: 1px solid var(--rule);
+  }
+
+  .seq th,
+  .seq td {
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .seq tbody th {
+    padding-right: 0;
+    margin-bottom: 0.65rem;
+  }
+
+  /* 8.5rem because the longest label, "Where it shows up", measures 129.5px
+     rendered. A narrower column wrapped it on every row and left "UP"
+     dangling under the other three words. Sized to the label rather than
+     shrinking the label, so the mono treatment stays identical to every other
+     label on the site. */
+  .seq td {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 0.75rem;
+    padding: 0.15rem 0;
+    font-size: 0.95rem;
+  }
+
+  .seq td::before {
+    content: attr(data-label);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 0.2rem;
+  }
+
+  /* nowrap is a desktop column alignment device. In the stacked layout the
+     value has a narrow column of its own and has to be free to wrap. */
+  .seq td:last-child {
+    white-space: normal;
+  }
 }
 
 /* --------------------------------------------------------------------------

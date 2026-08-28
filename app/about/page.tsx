@@ -8,7 +8,7 @@ import { CTA_HREF, CTA_LABEL } from '../cta'
    the business is. Kept in one constant so the page and the meta description
    cannot drift apart. */
 const VALUE_PROPOSITION =
-  'Purview Ops is a revenue operations and go to market engineering practice for climate technology companies. It is run by John Zebell from Denver, Colorado.'
+  'Purview Ops is a revenue operations and go to market engineering practice for companies selling into energy, water, waste, and grid infrastructure. It is run by John Zebell from Denver, Colorado.'
 
 const LINKEDIN = 'https://www.linkedin.com/in/john-zebell-iii-60b745163/'
 const GITHUB = 'https://github.com/JohnZebell'
@@ -126,7 +126,7 @@ const questions = [
     a: 'No. The findings document is yours either way, and it is written to be usable by whoever fixes the problems, including someone who is not us.',
   },
   {
-    q: 'Do you work with companies outside climate?',
+    q: 'Do you work with companies outside energy and environmental infrastructure?',
     a: 'The method applies anywhere. The market and timing work is specific to markets where buyers are countable and buying windows are public, which is why the practice is pointed here.',
   },
   {
@@ -176,7 +176,7 @@ const organizationSchema = {
     'CRM architecture',
     'Lead routing',
     'Marketing and sales instrumentation',
-    'Climate technology',
+    'Energy and environmental infrastructure',
   ],
 }
 
@@ -277,10 +277,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* WHY CLIMATE */}
+      {/* WHY THIS MARKET */}
       <section>
         <div className="shell row">
-          <h2 className="label">Why climate</h2>
+          <h2 className="label">Why this market</h2>
           <div>
             <p>Two reasons, and one of them is not about the climate.</p>
             <p>

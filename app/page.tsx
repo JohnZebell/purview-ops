@@ -8,11 +8,27 @@ const symptoms = [
   'Leads you disqualified last quarter that would qualify today, sitting where nobody will look at them again.',
 ]
 
+/* Public timing leads. It is the only claim here a generalist cannot learn
+   quickly, so it argues rather than lists, which is why it runs long and the
+   other three stay short. Run-in leads reuse the .doItem treatment from
+   /method rather than earning a fourth type level. */
 const facts = [
-  "Your market is small enough to count. There are only so many companies that fit what you sell, which means you can know the real number instead of estimating it, and you can know who's in it.",
-  "Your customers don't all buy the same way. A utility, a developer, and a corporate sustainability team have almost nothing in common except that you sell to all three. Blending them into one pipeline number gives you an average that describes none of them.",
-  'A lot of what decides your timeline is public. Grant cycles, budget approvals, procurement calendars. Most of it is published somewhere before anyone announces anything.',
-  "And a first deal is a trial. It either works or you don't get the second one, which makes what happens after the close matter as much as the close.",
+  {
+    lead: 'A lot of what decides your timeline is already published.',
+    body: 'Your buyers are utilities, municipalities, districts, and agencies. When they decide to spend money, they do it in a public meeting, with minutes. The capital plan is on a website. The bond measure was on a ballot. The permit is in a county database. Most of it exists months before anyone posts an RFP, and by the time the RFP is out the specification was usually written with somebody already in the room.',
+  },
+  {
+    lead: 'Your market is small enough to count.',
+    body: 'There are only so many companies and institutions that fit what you sell, which means you can know the real number instead of estimating it, and you can know who is in it.',
+  },
+  {
+    lead: 'Your customers do not all buy the same way.',
+    body: 'A utility, a municipality, and a private operator have almost nothing in common except that you sell to all three. Blending them into one pipeline number gives you an average that describes none of them.',
+  },
+  {
+    lead: 'A first deal is a trial.',
+    body: 'It either works or you do not get the second one, which makes what happens after the close matter as much as the close.',
+  },
 ]
 
 const stages = [
@@ -64,8 +80,8 @@ export default function Home() {
             <div>
               <h1>Find out what your revenue data actually says.</h1>
               <p className="sub">
-                Go to market engineering and revenue operations for climate
-                technology companies.
+                Go to market engineering and revenue operations for energy
+                and environmental infrastructure.
               </p>
               <Link className="btn big" href={CTA_HREF}>
                 {CTA_LABEL}
@@ -131,9 +147,11 @@ export default function Home() {
                 We know how your business actually works
               </h2>
               {facts.map((fact, i) => (
-                <div className="fact" key={fact}>
+                <div className="fact" key={fact.lead}>
                   <div className="n">{String(i + 1).padStart(2, '0')}</div>
-                  <p>{fact}</p>
+                  <p>
+                    <strong>{fact.lead}</strong> {fact.body}
+                  </p>
                 </div>
               ))}
             </div>

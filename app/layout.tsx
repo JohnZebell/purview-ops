@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     template: '%s · Purview Ops',
   },
   description:
-    'Go to market engineering and revenue operations for climate technology companies.',
+    'Go to market engineering and revenue operations for energy and environmental infrastructure.',
 }
 
 /* Items with no href are not built yet. They render as plain text with a
@@ -50,6 +50,7 @@ export const metadata: Metadata = {
    thin page gets indexed. Add the href when the page ships. */
 const navItems: { label: string; href?: string }[] = [
   { label: 'Work', href: '/work' },
+  { label: 'Timing', href: '/timing' },
   { label: 'Method', href: '/method' },
   { label: 'About', href: '/about' },
 ]

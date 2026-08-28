@@ -270,6 +270,11 @@ section:first-of-type {
   /* Optical, not structural. Mono at 0.72rem has a far smaller cap height
      than a Fraunces h2, so aligning the boxes leaves the label sitting high. */
   padding-top: 0.35rem;
+  /* letter-spacing is applied after the final glyph as well, so every label
+     reserves 0.14em of trailing space that draws nothing. Reclaiming it buys
+     back the width that made "The three engines" wrap at 144.9px in a 144px
+     column. The overhang lands in the 3rem gap, so nothing collides. */
+  margin-right: -0.14em;
 }
 
 /* A section holding two paragraphs should not get the same padding as one
@@ -716,6 +721,56 @@ section:first-of-type {
 }
 
 /* --------------------------------------------------------------------------
+   Method page
+   -------------------------------------------------------------------------- */
+
+/* The hero panel, standing alone in a content column rather than in the two
+   column hero grid, so it needs its own measure and vertical rhythm. */
+.vizInline {
+  max-width: 34rem;
+  margin: 2rem 0 2.5rem;
+}
+
+.testSteps {
+  margin-bottom: 2.5rem;
+  max-width: 64ch;
+}
+
+/* Technical appendix. Muted, tighter and smaller than the six sections above
+   it, so the reader who wants it can find it and everyone else can skip it.
+   The leads are ink at 500 rather than bold, which keeps them legible without
+   pulling the eye the way the run-in leads elsewhere do. */
+.appendix {
+  border-top: 1px solid var(--rule);
+  max-width: 62ch;
+}
+
+.appendixItem {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.9rem 0;
+}
+
+.appendixItem p {
+  margin: 0;
+  max-width: none;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.appendixItem strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.appendixLink {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--green);
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
    About page
 
    Certifications and public work are the credibility block, so they scan as
@@ -724,6 +779,18 @@ section:first-of-type {
 
 .aboutTitle {
   margin-bottom: 1.5rem;
+}
+
+.whoTitle {
+  max-width: 20ch;
+  margin-bottom: 0.5rem;
+}
+
+/* Sits directly under the name as a second line, not as a paragraph of its
+   own, so the two read as one block. */
+.whoPlace {
+  color: var(--muted);
+  margin-bottom: 1.75rem;
 }
 
 .creds,

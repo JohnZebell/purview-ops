@@ -187,18 +187,20 @@ export default function About() {
       {/* WHO RUNS IT */}
       <section>
         <div className="shell row">
-          <h2 className="label">Who</h2>
+          {/* This section now has a headline, so the label goes back to being
+              a div and the h2 carries the heading level. */}
+          <div className="label">Who</div>
           <div>
-            <p>John Zebell. Denver, Colorado.</p>
+            <h2 className="whoTitle">John Zebell</h2>
+            <p className="whoPlace">Denver, Colorado.</p>
             <p>
-              I build revenue systems. Over the past year I built and ran the
-              systems and automation function at a small firm from zero as the
-              first technical hire, delivering across concurrent client
-              engagements in wellness, telehealth, peptides, and sanitization as
-              the technical point of contact.
+              I build revenue systems. Over the past year I have built and
+              delivered them across concurrent client engagements in wellness,
+              telehealth, and services, as the technical point of contact on
+              each one.
             </p>
             <p>
-              That work was lead routing and scoring, lifecycle automation,
+              That work is lead routing and scoring, lifecycle automation,
               enrichment pipelines, CRM architecture and data hygiene,
               reporting, and AI agents running in production with guardrails on
               what they are allowed to write.
@@ -209,11 +211,6 @@ export default function About() {
               logging on cost and latency, validation on every write, and an
               alert when something fails rather than a record quietly
               disappearing.
-            </p>
-            <p>
-              Before this I managed funded trading positions covering more than
-              $200,000 in capital, which is where I learned what happens when a
-              process breaks down under pressure.
             </p>
 
             <h3 className="label subLabel">Certifications, all verifiable</h3>

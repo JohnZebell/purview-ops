@@ -46,7 +46,7 @@ export const metadata: Metadata = {
    thin page gets indexed. Add the href when the page ships. */
 const navItems: { label: string; href?: string }[] = [
   { label: 'Work', href: '/work' },
-  { label: 'Method' },
+  { label: 'Method', href: '/method' },
   { label: 'About', href: '/about' },
 ]
 

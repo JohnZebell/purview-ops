@@ -24,15 +24,15 @@ Engagements start with a two week audit, then continue as a monthly retainer if 
 
 **Label:** Who
 
-John Zebell. Denver, Colorado.
+**Headline (h2, Fraunces, same treatment as other page headlines):** John Zebell
 
-I build revenue systems. Over the past year I built and ran the systems and automation function at a small firm from zero as the first technical hire, delivering across concurrent client engagements in wellness, telehealth, peptides, and sanitization as the technical point of contact.
+Denver, Colorado.
 
-That work was lead routing and scoring, lifecycle automation, enrichment pipelines, CRM architecture and data hygiene, reporting, and AI agents running in production with guardrails on what they are allowed to write.
+I build revenue systems. Over the past year I have built and delivered them across concurrent client engagements in wellness, telehealth, and services, as the technical point of contact on each one.
+
+That work is lead routing and scoring, lifecycle automation, enrichment pipelines, CRM architecture and data hygiene, reporting, and AI agents running in production with guardrails on what they are allowed to write.
 
 Everything I build runs unattended, so I instrument it to prove its own output rather than report that it succeeded. Run level logging on cost and latency, validation on every write, and an alert when something fails rather than a record quietly disappearing.
-
-Before this I managed funded trading positions covering more than $200,000 in capital, which is where I learned what happens when a process breaks down under pressure.
 
 **Certifications, all verifiable.**
 

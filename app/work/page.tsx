@@ -148,6 +148,12 @@ const stages: Stage[] = [
             ],
           },
           {
+            lead: 'Check that your contacts still work where your CRM says they do.',
+            paras: [
+              'A record does not decay visibly. The name is still there, the title is still there, and the person left eighteen months ago. On a six to eighteen month cycle that matters more than it does elsewhere, because the relationship you spent two years building is attached to someone who is no longer in the building. The ones who moved get surfaced instead of sitting there looking correct.',
+            ],
+          },
+          {
             lead: 'Validate scoring before deploying it.',
             paras: [
               'Run win rate by score band against your actual history first. If the bands do not separate, the criteria are wrong, and no amount of weight tuning fixes wrong criteria.',

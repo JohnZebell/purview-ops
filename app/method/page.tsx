@@ -16,7 +16,8 @@ const engines = [
   },
   {
     lead: 'The documented engine.',
-    body: 'What the playbooks, CRM fields, and dashboards say.',
+    body:
+      'What the playbooks, CRM fields, dashboards, and onboarding docs say.',
   },
   {
     lead: 'The actual engine.',
@@ -138,9 +139,8 @@ export default function Method() {
             </p>
             <p>
               This matters more here than in most industries because the cycles
-              are long. A six month gap between the two numbers changes hiring
-              plans, cash forecasts, and what you tell anyone who asks how the
-              business is doing.
+              are long. A six month gap between the two numbers changes your
+              hiring plan and your cash forecast.
             </p>
           </div>
         </div>
@@ -196,9 +196,6 @@ export default function Method() {
                 </div>
               ))}
             </div>
-            <p className="auditBody">
-              Most companies think they are at layer three and are at layer two.
-            </p>
           </div>
         </div>
       </section>
@@ -223,10 +220,9 @@ export default function Method() {
               on someone&apos;s calendar.
             </p>
             <p>
-              This is how we count what a leak costs. Not by estimating what a
-              task should take, but by counting hours spent on work that should
-              not have existed. That number is defensible because the work is
-              observable and the cause is nameable.
+              This is how we count what a leak costs. We count hours spent on
+              work that should not have existed. The work is observable and the
+              cause is nameable.
             </p>
             <p>
               A busy team is not necessarily a productive one. Sometimes it is a
@@ -270,8 +266,7 @@ export default function Method() {
               disagree about what qualified means, both are correct under their
               own definition, which is why the meeting never resolves. Run both
               definitions against closed won data instead. Whichever population
-              converts differently is the one carrying information. Nobody gets
-              overruled.
+              converts differently is the one carrying information.
             </p>
           </div>
         </div>
@@ -283,9 +278,9 @@ export default function Method() {
           <h2 className="label">Lag</h2>
           <div>
             <p>
-              Any change to how deals are qualified, routed, or worked is
-              invisible in win rate and cycle length until a full cycle has
-              passed.
+              Any change to how deals are qualified, routed, worked, or handed
+              off is invisible in win rate and cycle length until a full cycle
+              has passed.
             </p>
             <p>
               With cycles running six to eighteen months, that means an
@@ -294,7 +289,7 @@ export default function Method() {
               noise.
             </p>
             <p>
-              What does move immediately: opportunity creation rate,
+              Five things do move immediately. Opportunity creation rate,
               qualification pass rate, first touch percentage, time to first
               touch, stage entry counts.
             </p>
@@ -307,9 +302,8 @@ export default function Method() {
             <p>
               <strong>One thing that follows from it.</strong> Tightening
               qualification lowers pipeline volume. That is the mechanism
-              working, not failing. Volume down and revenue up is the success
-              case, and it reads as failure to anyone who was not told in
-              advance.
+              working. Volume down and revenue up is the success case, and it
+              reads as failure to anyone who was not told in advance.
             </p>
           </div>
         </div>

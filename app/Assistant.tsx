@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { CHAT_WEBHOOK_URL } from './chat'
 
 type Message = {
@@ -21,6 +22,46 @@ const MAX_TURNS = 20
 
 /* Section 5 again. One line saying what it can do, not a greeting. */
 const OPENING = 'Ask about the audit, the work, or how any of this is diagnosed.'
+
+/* The prompt tells the assistant to write links as [text](/path) and to emit
+   at most one. Matching that one shape is smaller than a markdown dependency
+   and, more to the point, it can only ever produce a Link or a text node.
+   There is no path here that turns model output into markup. */
+const LINK_PATTERN = /\[([^\]\n]+)\]\((\/[^)\s]*)\)/g
+
+/* One leading slash, and the next character cannot open an authority.
+   Browsers read both //host and /\host as protocol-relative, so "starts with
+   a slash" is not on its own enough to prove a path is internal. The pattern
+   above already refuses http, https, and mailto by requiring the slash. */
+const isInternalPath = (path: string) =>
+  path === '/' || /^\/[^/\\]/.test(path)
+
+/* Returns text nodes and Links. Anything that does not match, including a
+   link whose path failed isInternalPath, stays in the text untouched, which
+   is why last only advances past links that were actually rendered. */
+function renderMessage(content: string): ReactNode[] {
+  /* Built per call. A module-level global regex carries lastIndex between
+     calls and would skip matches on the second message. */
+  const pattern = new RegExp(LINK_PATTERN.source, 'g')
+  const out: ReactNode[] = []
+  let last = 0
+  let match: RegExpExecArray | null
+
+  while ((match = pattern.exec(content)) !== null) {
+    const [raw, text, path] = match
+    if (!isInternalPath(path)) continue
+    if (match.index > last) out.push(content.slice(last, match.index))
+    out.push(
+      <Link href={path} key={match.index}>
+        {text}
+      </Link>,
+    )
+    last = match.index + raw.length
+  }
+
+  if (last < content.length) out.push(content.slice(last))
+  return out
+}
 
 export default function Assistant() {
   const pathname = usePathname()
@@ -147,7 +188,7 @@ export default function Assistant() {
                 className={m.role === 'user' ? 'asstUser' : 'asstReply'}
                 key={i}
               >
-                {m.content}
+                {m.role === 'assistant' ? renderMessage(m.content) : m.content}
               </p>
             ))}
 

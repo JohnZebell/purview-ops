@@ -193,7 +193,10 @@ export default function Audit() {
               We do not need a discovery call before the intake doc. You fill in
               the doc, we ask follow ups in writing if we have any.
             </p>
-            <p>We do not need access to anything we cannot read only.</p>
+            <p>
+              For the audit we do not need access to anything we cannot read
+              only.
+            </p>
             <p>
               We are not going to tell you your team is bad at their jobs. The
               things we find are almost always work that belonged to nobody, not

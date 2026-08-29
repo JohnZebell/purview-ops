@@ -73,9 +73,20 @@ const howWeWork = [
     lead: 'We recommend, you execute.',
     body: 'We build the systems and tell you what the data says. We do not run your revenue org, sit in your standups, or become something you cannot operate without.',
   },
+  /* Scoped to the audit, and the sibling below carries the rest.
+     This item used to read "Nothing we ask for lets us change anything in
+     your systems", which was absolute and which the stack section on /method
+     already contradicted. The real rule was never that we do not write. It is
+     that we do not write without a check in front of it. Access follows the
+     same seam price and duration already follow: the audit is fixed and read
+     only, a retainer build is asked for. */
   {
-    lead: 'Read only access.',
-    body: 'Nothing we ask for lets us change anything in your systems.',
+    lead: 'Read only access for the audit.',
+    body: 'Nothing we ask for during the audit lets us change anything in your systems.',
+  },
+  {
+    lead: 'Write access only when you have asked us to build something.',
+    body: 'Some of what gets built during a retainer has to write back, and that is the only time we ask for more than reading. Never to a CRM field without a check in front of it, and never as a substitute for a rule.',
   },
   {
     lead: 'A fixed audit before anything else.',
@@ -106,9 +117,18 @@ const situations = [
    markup and the structured data cannot drift apart. Google treats schema
    that does not match visible content as a violation. */
 const questions = [
+  /* Two questions rather than one. The audit answer is unchanged and stays
+     unhedged, because it is the one that gets quoted: it feeds the FAQPage
+     schema below and it is what an assistant reads back when someone asks
+     what access we need. The retainer case gets its own entry so it cannot
+     dilute that answer. */
   {
-    q: 'What access do you need?',
+    q: 'What access do you need for the audit?',
     a: 'Read only access to your CRM, and to whatever else holds revenue data. Nothing that permits changes.',
+  },
+  {
+    q: 'Does that change if we continue on a retainer?',
+    a: 'Only if you ask us to build something that has to write back, and only for that piece. Never to a CRM field without a check in front of it, and never as a substitute for a rule. The audit itself is read only either way.',
   },
   {
     q: 'What if we do not have a CRM?',

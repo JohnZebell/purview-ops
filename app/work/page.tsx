@@ -305,6 +305,32 @@ const stages: Stage[] = [
               'Deterministic criteria, evaluated on a schedule, alerting when something changes state. Limit proximity, usage deviating from the expected path, a champion promoted or departed, a buying window opening.',
             ],
           },
+          /* The four items above assume a meter. These two carry the same
+             layer for clients whose product gets installed rather than logged
+             into, which is roughly half the stated ICP and had nothing here
+             before. A parallel set rather than a rewrite, because limit
+             proximity is the strongest signal on the page for the clients it
+             does describe.
+
+             The funding document signal is the /timing argument pointed at an
+             existing customer rather than a new one. Not linked, because paras
+             are plain strings and a link would mean changing Part and
+             StagePart. */
+          {
+            lead: 'Read the installed base when there is no meter.',
+            paras: [
+              'Limit proximity and usage assume a meter. If what you sell gets installed rather than logged into, the strongest signal is age. A unit put in eight years ago against a ten year service life is a buying window on a computable schedule, and the schedule runs whether or not anyone is reading it.',
+              'The next one is the document that funded you. Capital work arrives in tranches, and the plan that paid for the first job often approved the second at the same time. Phase two was sitting in the document that funded phase one and nobody read it.',
+              "Then coverage inside the account. How many of a customer's sites run your equipment, against how many they operate. That is a number you can state, and almost nobody states it.",
+              'And change orders, which are the expansion motion in a project business whether or not anyone calls them that. Value as a share of contract says how much is already happening. Cycle time from agreement to invoiced says what it costs to get.',
+            ],
+          },
+          {
+            lead: 'Replace NRR where there is nothing recurring under it.',
+            paras: [
+              'The six parts need a subscription to decompose. Without one, the same questions get answered by repeat purchase rate, time to second order, revenue per account per year trended, and service contract retention. Most equipment companies already have that last number and do not read it as retention.',
+            ],
+          },
         ],
       },
       {

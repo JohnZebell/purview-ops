@@ -5,7 +5,7 @@ import { pageMetadata } from '../seo'
 export const metadata = pageMetadata({
   title: 'Method',
   description:
-    'Six things we check for and why each one matters, including the survivorship correction on sales cycle, the three engines, and the separation test.',
+    'Six things that shape what we check for, including the survivorship correction on sales cycle, the three engines, and the separation test.',
   path: '/method',
 })
 
@@ -84,9 +84,9 @@ export default function Method() {
           <div>
             <h1 className="introTitle">How the diagnosis works</h1>
             <p>
-              Six things we check for and why each one matters. If you want to
-              run any of this yourself, the descriptions here are enough to do
-              it.
+              Six things that shape what we check for and why each one matters.
+              If you want to run any of this yourself, the descriptions here are
+              enough to do it.
             </p>
           </div>
         </div>
@@ -344,11 +344,12 @@ export default function Method() {
         <div className="shell row">
           <div className="label">Next</div>
           <div>
-            <h2 className="closeTitle">All of it runs in two weeks</h2>
+            <h2 className="closeTitle">What the audit looks for</h2>
             <p className="closeSub">
-              The audit applies every check on this page to your data. $1,000,
-              credited against your first month if you keep going. The findings
-              are yours either way.
+              The audit runs seven checks against your real data. Three of the
+              six things above are among them. The other three are how the
+              findings get read. It is $1,000, credited against your first month
+              if you keep going. The findings are yours either way.
             </p>
             <div className="cta">
               <Link className="btn big" href={CTA_HREF}>

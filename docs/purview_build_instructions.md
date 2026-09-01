@@ -2,6 +2,8 @@
 
 For Claude Code. Copy lives in `purview_homepage_copy.md`. Layout reference is `purview-home-v2.html`. Build against that, not the earlier wireframe.
 
+**This is the original build spec, kept as written.** Three of its decisions have been superseded since the site shipped. Each is annotated in place below rather than removed, so the reasoning that produced it stays readable. They are the page list in section 1, the chat widget ban in section 2, and the single CTA rule in section 4. Everything else still holds.
+
 ---
 
 ## 1. Stack
@@ -18,6 +20,8 @@ Next.js on Vercel. Static, no CMS, no database, no auth. Six pages, though only 
 ```
 
 Ship at home and /audit if needed. Do not scaffold /notes until there is content for it.
+
+**Superseded in part.** The list above is missing `/timing`, which shipped as a sixth page per `purview_site_restructure.md` line 81. `/notes` is still correctly unbuilt. The live six are `/`, `/audit`, `/work`, `/timing`, `/method` and `/about`.
 
 ---
 
@@ -90,7 +94,7 @@ Plus the numbered fact rows in the differentiator section, which use a `2.25rem 
 - **No shadows.** Borders only.
 - No gradients, glassmorphism, emoji, or icon badges.
 - No scroll animations, parallax, count-up numbers, or motion that does not explain something.
-- No chat widget, exit popup, or countdown.
+- No chat widget, exit popup, or countdown. **Superseded** by `purview_assistant_spec.md`. The assistant widget ships, bottom right and closed by default. Exit popups and countdowns stay out.
 - No stock photography, no team photos, no logo wall.
 
 ---
@@ -134,6 +138,8 @@ Section order. Copy is in `purview_homepage_copy.md`. Visual reference is `purvi
 **Check list markers** are a 0.6rem green horizontal rule positioned absolutely, not a bullet or checkmark. Each item separated by a hairline.
 
 **One CTA, repeated.** Same label and destination in the header, hero, audit section, and close. No second action anywhere on the page.
+
+**Superseded** by `purview_copy_pass.md` lines 20 to 25. The audit section button now reads "See what we check" and points at `/audit`, and the boundary section gained "How the diagnosis works" pointing at `/method`. Three audit CTAs remain, in the header, hero and close.
 
 **Hero diagram numbers are placeholders.** Replace with real figures when available.
 

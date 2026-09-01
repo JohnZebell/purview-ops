@@ -12,7 +12,7 @@ Written flatter than the other pages on purpose. Fewer turns of phrase, more sta
 
 **Headline:** How the diagnosis works
 
-Six things we check for and why each one matters. If you want to run any of this yourself, the descriptions here are enough to do it.
+Six things that shape what we check for and why each one matters. If you want to run any of this yourself, the descriptions here are enough to do it.
 
 ---
 
@@ -157,9 +157,9 @@ We state this at the start of an engagement, not at the end. Otherwise good work
 
 **Label:** Next
 
-**Headline:** All of it runs in two weeks
+**Headline:** What the audit looks for
 
-The audit applies every check on this page to your data. $1,000, credited against your first month if you keep going. The findings are yours either way.
+The audit runs seven checks against your real data. Three of the six things above are among them. The other three are how the findings get read. The audit is $1,000, credited against your first month if you keep going. The findings are yours either way.
 
 [Start with the audit]
 

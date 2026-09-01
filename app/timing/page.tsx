@@ -216,7 +216,8 @@ export default function Timing() {
             <h2 className="closeTitle">Two weeks against your own data</h2>
             <p className="closeSub">
               Deals waiting on an external clock and deals that stalled look
-              identical in most CRMs. Telling them apart is one of the checks.
+              identical in most CRMs. The audit computes your real cycle length,
+              and reports whether anything in your system tells those two apart.
               $1,000, credited against your first month if you keep going. The
               findings are yours either way.
             </p>

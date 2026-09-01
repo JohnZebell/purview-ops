@@ -4,7 +4,7 @@ The system prompt, the trigger logic, and the logging spec.
 
 **Source of truth is n8n, not this file.** The live prompt is the workflow `Purview Site Assistant` (`0TXvTqC9pxxjeBXD`), node **Assistant**, field `messages.messageValues[0].message`. Synced from `activeVersionId` `99cf501e-7935-49e6-862c-700d68db8f93`, published 2026-09-01. Edit n8n first, then sync this file and update the id on this line.
 
-Knowledge base is loaded into the prompt in full. No retrieval, no vector store, no chunking. The corpus is about 3,000 words, which means the assistant cannot fail to find something and cannot cite a page that does not exist. It lives inline in the n8n prompt between the knowledge base markers and has no separate file in this repo.
+Knowledge base is loaded into the prompt in full. No retrieval, no vector store, no chunking. The corpus is about 3,000 words, which means the assistant cannot fail to find something and cannot cite a page that does not exist. It lives inline in the n8n prompt between the knowledge base markers, and is reproduced verbatim in `purview_assistant_knowledge_base.md`.
 
 ---
 

@@ -159,7 +159,7 @@ We state this at the start of an engagement, not at the end. Otherwise good work
 
 **Headline:** What the audit looks for
 
-The audit runs seven checks against your real data. Three of the six things above are among them. The other three are how the findings get read. The audit is $1,000, credited against your first month if you keep going. The findings are yours either way.
+The audit runs seven checks against your real data. Three of the six things above are among them. The other three are how the findings get read. It is $1,000, credited against your first month if you keep going. The findings are yours either way.
 
 [Start with the audit]
 
@@ -174,3 +174,5 @@ The audit runs seven checks against your real data. Three of the six things abov
 **The technical appendix is visually secondary.** Muted, tighter, smaller. It is there for the reader who wants it and should not compete with the six sections above it.
 
 **Section 1 goes first deliberately.** It is the strongest item on the page and burying it wastes it.
+
+**Three of the six are not checks.** Survivorship, failure demand and the separation test each produce a number, and they appear on the audit list as checks 5, 7 and 6. The three engines, the layers and the lag rule produce nothing measurable. They are how a company gets read and how a finding gets judged. The audit list is seven, it lives on `/audit`, and it overlaps these six in only three places. That is why the opener says the six shape what we check for rather than saying they are what we check for.

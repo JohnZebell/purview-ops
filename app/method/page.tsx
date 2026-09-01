@@ -348,8 +348,8 @@ export default function Method() {
             <p className="closeSub">
               The audit runs seven checks against your real data. Three of the
               six things above are among them. The other three are how the
-              findings get read. The audit is $1,000, credited against your
-              first month if you keep going. The findings are yours either way.
+              findings get read. It is $1,000, credited against your first month
+              if you keep going. The findings are yours either way.
             </p>
             <div className="cta">
               <Link className="btn big" href={CTA_HREF}>

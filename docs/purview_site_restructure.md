@@ -145,7 +145,15 @@ And the lead times are long. A signal firing today may not become a purchase for
 
 **Close**
 
-Links to the audit, same as every other page.
+> **Label:** Next
+>
+> **Headline:** Two weeks against your own data
+>
+> Deals waiting on an external clock and deals that stalled look identical in most CRMs. The audit computes your real cycle length, and reports whether anything in your system tells those two apart. $1,000, credited against your first month if you keep going. The findings are yours either way.
+>
+> [Start with the audit]
+
+**The close does not claim a check.** External timeline separation is not one of the seven audit checks, and the close must not imply it is. What it names is cycle length, which is on the list. The external clock question is stated as something the findings report rather than as a check of its own, because the fix for it is a field, per section three above.
 
 ---
 

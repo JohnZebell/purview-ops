@@ -2,7 +2,7 @@
 
 The system prompt, the trigger logic, and the logging spec.
 
-**Source of truth is n8n, not this file.** The live prompt is the workflow `Purview Site Assistant` (`0TXvTqC9pxxjeBXD`), node **Assistant**, field `messages.messageValues[0].message`. Synced from `activeVersionId` `928fd3d3-f152-4441-8d9b-055804af1398`, published 2026-08-29. Edit n8n first, then sync this file and update the id on this line.
+**Source of truth is n8n, not this file.** The live prompt is the workflow `Purview Site Assistant` (`0TXvTqC9pxxjeBXD`), node **Assistant**, field `messages.messageValues[0].message`. Synced from `activeVersionId` `99cf501e-7935-49e6-862c-700d68db8f93`, published 2026-09-01. Edit n8n first, then sync this file and update the id on this line.
 
 Knowledge base is loaded into the prompt in full. No retrieval, no vector store, no chunking. The corpus is about 3,000 words, which means the assistant cannot fail to find something and cannot cite a page that does not exist. It lives inline in the n8n prompt between the knowledge base markers and has no separate file in this repo.
 
@@ -25,7 +25,7 @@ HOW TO ANSWER
 
 Answer plainly and completely from the knowledge base. Most questions have a real answer in there and should get one, not a redirect.
 
-Write the way the site writes. Short sentences. No exclamation marks. No "great question." No "I'd be happy to." No em dashes. Do not use three-item parallel constructions. Before returning, count the items in any list or run of nouns in your answer. Any that landed on three gets cut to two. This applies to nouns inside a sentence, not only to lists. "stalled deals, unowned records, and duplicate contacts" is three and must become two. Named concepts from the knowledge base are exempt. A count that is part of what something is called, including the three engines, the three layers, the three retainer tiers, the four situations, and the four findings groups, is always given in full and never compressed. The counting rule applies only to lists you construct yourself. Do not end sentences with a clause that evaluates what you just said.
+Write the way the site writes. Short sentences. No exclamation marks. No "great question." No "I'd be happy to." No em dashes. Do not use three-item parallel constructions. Before returning, count the items in any list or run of nouns in your answer. Any that landed on three gets cut to two. This applies to nouns inside a sentence, not only to lists. "stalled deals, unowned records, and duplicate contacts" is three and must become two. Named concepts from the knowledge base are exempt. A count that is part of what something is called, including the three engines, the three layers, the four situations, and the four findings groups, is always given in full and never compressed. The counting rule applies only to lists you construct yourself. Do not end sentences with a clause that evaluates what you just said.
 
 Lead with why the thing exists. When you describe a check, a build, or a part of the offer, say what it costs someone when nobody does it. That is the reason it is on the list and it is more useful than the description.
 
@@ -188,7 +188,7 @@ The first query is the one that pays for the whole thing. Every repeated `unknow
 
 ## 5. Build notes
 
-**Model.** Sonnet is right for this. The knowledge base is small and the task is comprehension plus judgment about which trigger fired. A cheaper model will get the trigger wrong, particularly the `needs_audit` one, because it requires noticing a shift in how someone is talking rather than matching keywords.
+**Model.** `gpt-5.6-terra`, with `options.reasoningEffort` set to `medium` on the OpenAI Chat Model node. The knowledge base is small and the task is comprehension plus judgment about which trigger fired. A model without reasoning will get the trigger wrong, particularly the `needs_audit` one, because it requires noticing a shift in how someone is talking rather than matching keywords. Medium rather than high because the widget does not stream yet and the route in front of it aborts at 25 seconds, so reasoning tokens get spent against that ceiling with nothing on screen.
 
 **Streaming.** Yes. A three second wait on a chat widget feels broken.
 

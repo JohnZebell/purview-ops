@@ -284,11 +284,11 @@ const stages: Stage[] = [
           {
             lead: 'Compute expansion as a share of total growth, trended.',
             paras: [
-              'This is a better diagnostic than NRR, because NRR tells you the base is growing while this tells you how much of the whole engine is the cheap half.',
+              'This is a better diagnostic than net retention, which tells you the base is growing while this tells you how much of the whole engine is the cheap half.',
             ],
           },
           {
-            lead: 'Decompose NRR into its six parts.',
+            lead: 'Decompose net retention into its six parts.',
             paras: [
               'Seat, usage, cross sell, price, contraction, churn. One number blends all six and hides which one is moving. Gross retention stated alongside it, always.',
             ],
@@ -326,7 +326,7 @@ const stages: Stage[] = [
             ],
           },
           {
-            lead: 'Replace NRR where there is nothing recurring under it.',
+            lead: 'Replace net retention where there is nothing recurring under it.',
             paras: [
               'The six parts need a subscription to decompose. Without one, the same questions get answered by repeat purchase rate, time to second order, revenue per account per year trended, and service contract retention. Most equipment companies already have that last number and do not read it as retention.',
             ],

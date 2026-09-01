@@ -172,13 +172,13 @@ There is a more specific cost, and it is usually the one that lands. Somewhere i
 
 Expansion has no owner in most companies. Sales is compensated on new logos. Customer success is compensated on retention. Expansion sits between them and gets whatever attention is left over.
 
-And the instrumentation that would make it visible usually does not exist. If expansion ARR and new ARR are not separated in the system, then expansion share of growth, decomposed NRR, and expansion velocity are all uncomputable. One recording decision blocks four metrics.
+And the instrumentation that would make it visible usually does not exist. If expansion revenue and new business revenue are not separated in the system, then expansion share of growth, retention decomposed by its parts, and expansion velocity are all uncomputable. One recording decision blocks four metrics.
 
 ### What we do
 
-**Compute expansion as a share of total growth, trended.** This is a better diagnostic than NRR, because NRR tells you the base is growing while this tells you how much of the whole engine is the cheap half.
+**Compute expansion as a share of total growth, trended.** This is a better diagnostic than net retention, which tells you the base is growing while this tells you how much of the whole engine is the cheap half.
 
-**Decompose NRR into its six parts.** Seat, usage, cross sell, price, contraction, churn. One number blends all six and hides which one is moving. Gross retention stated alongside it, always.
+**Decompose net retention into its six parts.** Seat, usage, cross sell, price, contraction, churn. One number blends all six and hides which one is moving. Gross retention stated alongside it, always.
 
 **Audit the friction, which nobody does.** How long a small upsell takes from customer agreement to invoiced. Whether adding something requires a new contract, an amendment, or a click. Whether a small expansion routes through the same approval path as a new deal. And the accounts sitting persistently at a limit without upgrading.
 
@@ -192,7 +192,7 @@ Then coverage inside the account. How many of a customer's sites run your equipm
 
 And change orders, which are the expansion motion in a project business whether or not anyone calls them that. Value as a share of contract says how much is already happening. Cycle time from agreement to invoiced says what it costs to get.
 
-**Replace NRR where there is nothing recurring under it.** The six parts need a subscription to decompose. Without one, the same questions get answered by repeat purchase rate, time to second order, revenue per account per year trended, and service contract retention. Most equipment companies already have that last number and do not read it as retention.
+**Replace net retention where there is nothing recurring under it.** The six parts need a subscription to decompose. Without one, the same questions get answered by repeat purchase rate, time to second order, revenue per account per year trended, and service contract retention. Most equipment companies already have that last number and do not read it as retention.
 
 ### What changes
 

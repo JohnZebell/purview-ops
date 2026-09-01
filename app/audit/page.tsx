@@ -219,8 +219,8 @@ export default function Audit() {
               Tell us where you think it is leaking
             </h3>
             <p className="sub formSub">
-              Six questions. Two minutes. We will come back with what access we
-              need.
+              Nine questions, three required. Two minutes. We will come back
+              with what access we need.
             </p>
             <IntakeForm />
           </div>

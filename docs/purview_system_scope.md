@@ -30,17 +30,21 @@ No CMS, no auth, no user accounts.
 
 ## 2. The form
 
-Six required fields, one optional. Every field past six costs submissions, and the first two do most of the work.
+Three required fields, six optional. Requiring more than a name and an email costs submissions, and everything else here is something the audit establishes anyway.
 
 | Field | Type | Required | Why it exists |
 |---|---|---|---|
+| First name | text | Yes | So a reply addresses a person rather than a domain |
+| Last name | text | Yes | Same, and it maps to a standard HubSpot property |
 | Work email | email | Yes | The domain is the key to everything downstream |
-| Company website | url | Yes | Enrichment anchor. Prefill from the email domain |
-| What you sell, one line | text | Yes | Feeds segment classification |
-| Who buys it | select | Yes | Routes to the right diagnostic. Options below |
-| Roughly how many customers | select | Yes | The stage router. Easier to answer than ARR |
-| What CRM are you on | select | Yes | Determines whether the instrumentation findings are even possible |
+| Company website | url | No | Enrichment anchor. Prefill from the email domain |
+| What you sell, one line | text | No | Feeds segment classification |
+| Who buys it | select | No | Routes to the right diagnostic. Options below |
+| Roughly how many customers | select | No | The stage router. Easier to answer than ARR |
+| What CRM are you on | select | No | Determines whether the instrumentation findings are even possible |
 | One number about your revenue you wish you could trust | textarea | No | The most valuable field on the form. Their words, their problem |
+
+An optional field left blank is omitted from the payload rather than sent as an empty string. Section 1 of `purview_hubspot_setup.md` carries the shape.
 
 ### Select options
 
@@ -58,6 +62,7 @@ Note that `Not sure` on CRM is itself a finding, not a missing value. Do not tre
 ### Form behavior
 
 - Client side validation on email format and required fields only. No blocking on anything else.
+- Optional fields left blank are omitted from the payload, never sent as empty strings.
 - POST to the n8n webhook. Do not post directly to HubSpot.
 - On success, show a promise with a clock on it rather than a result. Something like "You will have the findings within two weeks. First thing we send is the access request."
 - Do not render anything computed back to the screen. The value goes in the deliverable.

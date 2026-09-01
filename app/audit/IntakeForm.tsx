@@ -176,10 +176,18 @@ export default function IntakeForm() {
 
     /* Trim only. Nothing is lowercased here, including the email, because
        normalising in two places is how a pipeline stops being reconcilable.
-       n8n owns normalisation. */
+       n8n owns normalisation.
+
+       An optional field the visitor left alone is omitted rather than sent as
+       an empty string. Every select here maps to a HubSpot dropdown with a
+       fixed set of values and "" is not one of them, so the write would
+       succeed and the property would come back blank. That is the silent
+       failure section 2.1 of purview_hubspot_setup.md warns about. Absent is
+       a state the pipeline can branch on. Empty is not. */
     const payload: Values = { source_page: '/audit' }
     for (const [key, value] of Object.entries(values)) {
-      payload[key] = value.trim()
+      const trimmed = value.trim()
+      if (trimmed) payload[key] = trimmed
     }
 
     try {

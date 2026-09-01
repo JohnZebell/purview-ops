@@ -114,18 +114,20 @@ And we do not stay after unless you want us to. The audit is a fixed piece of wo
 
 **Headline:** Tell us where you think it is leaking
 
-**Sub:** Six questions. Two minutes. We will come back with what access we need.
+**Sub:** Nine questions, three required. Two minutes. We will come back with what access we need.
 
 ### Fields
 
 | Field | Type | Required | Placeholder or help |
 |---|---|---|---|
+| First name | text | Yes | |
+| Last name | text | Yes | |
 | Work email | email | Yes | |
-| Company website | url | Yes | Prefill from the email domain |
-| What you sell, in one line | text | Yes | "Grid monitoring software for utilities" |
-| Who buys it | select | Yes | See options below |
-| Roughly how many customers | select | Yes | An estimate is fine |
-| What CRM are you on | select | Yes | |
+| Company website | url | No | Prefill from the email domain |
+| What you sell, in one line | text | No | "Grid monitoring software for utilities" |
+| Who buys it | select | No | See options below |
+| Roughly how many customers | select | No | An estimate is fine |
+| What CRM are you on | select | No | |
 | One number about your revenue you wish you could trust | textarea | No | Optional, and the most useful thing on this form |
 
 **Who buys it:**

@@ -15,6 +15,8 @@ The form sends this payload. Everything below is built to receive it.
 ```json
 {
   "source_page": "/audit",
+  "firstname": "Dana",
+  "lastname": "Reyes",
   "email": "Dana.Reyes@VoltaGrid.io",
   "website": "https://voltagrid.io",
   "what_they_sell": "Grid monitoring software for utilities",
@@ -24,6 +26,21 @@ The form sends this payload. Everything below is built to receive it.
   "untrusted_number": "Our win rate. It says 34% and nobody believes it."
 }
 ```
+
+**Four keys are always present.** `source_page`, `firstname`, `lastname` and `email`. The form requires the name and the email and supplies the source itself, so no submission can arrive without them.
+
+**The other six are omitted when blank, not sent empty.** Everything from `website` down is optional on the form. A field the visitor left alone does not appear in the payload at all, because `""` is not a value any of these dropdowns can take and writing it would succeed while leaving the property blank. A minimal submission is the whole of this:
+
+```json
+{
+  "source_page": "/audit",
+  "firstname": "Dana",
+  "lastname": "Reyes",
+  "email": "Dana.Reyes@VoltaGrid.io"
+}
+```
+
+**Absent is not the same as `not_sure`.** `not_sure` is an answer, on `crm` and on `buyer_type` both, and section 2.3 says to treat it as a finding rather than a null. A missing key means the question was skipped. Anything reading these has to keep the two apart.
 
 **Email casing is preserved by the form deliberately.** n8n owns lowercasing. Normalizing in two places is how a pipeline stops being reconcilable.
 
@@ -94,6 +111,8 @@ Computed in n8n from `customer_band`, never entered by the person.
 | `10_40` | `series_a` |
 | `40_150` | `series_b` |
 | `150_plus` | `series_c` |
+
+`customer_band` is optional on the form, so it can be absent from the payload. When it is, derive nothing and leave `pv_stage_layer` unset. A default here would put a real-looking stage on a record nobody classified, which is worse than an empty one.
 
 ### 2.5 `pv_intake_status`
 
@@ -196,6 +215,8 @@ Give these to the n8n MCP **before** the node sequence. The default workflow it 
       ├─ new       →  continue
       └─ existing  →  status duplicate, update rather than create, alert
  6  Derive stage layer       map customer_band per 2.4
+      ├─ present  →  set pv_stage_layer
+      └─ absent   →  leave unset and continue. Not an error.
  7  Enrich company           optional, cheap, from the domain
       ├─ success  →  continue
       └─ fail     →  status failed_enrich, continue anyway

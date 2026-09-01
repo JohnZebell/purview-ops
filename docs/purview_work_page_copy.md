@@ -90,6 +90,8 @@ The funnel math is the same shape. At the raise those numbers were assertions su
 
 **Recover what is already stranded.** Deals sitting on deactivated users. Qualified contacts nobody ever contacted. This is revenue from records you already own and already paid for.
 
+**Check that your contacts still work where your CRM says they do.** A record does not decay visibly. The name is still there, the title is still there, and the person left eighteen months ago. On a six to eighteen month cycle that matters more than it does elsewhere, because the relationship you spent two years building is attached to someone who is no longer in the building. The ones who moved get surfaced instead of sitting there looking correct.
+
 **Validate scoring before deploying it.** Run win rate by score band against your actual history first. If the bands do not separate, the criteria are wrong, and no amount of weight tuning fixes wrong criteria.
 
 ### What changes
@@ -181,6 +183,16 @@ And the instrumentation that would make it visible usually does not exist. If ex
 **Audit the friction, which nobody does.** How long a small upsell takes from customer agreement to invoiced. Whether adding something requires a new contract, an amendment, or a click. Whether a small expansion routes through the same approval path as a new deal. And the accounts sitting persistently at a limit without upgrading.
 
 **Build the signal layer.** Deterministic criteria, evaluated on a schedule, alerting when something changes state. Limit proximity, usage deviating from the expected path, a champion promoted or departed, a buying window opening.
+
+**Read the installed base when there is no meter.** Limit proximity and usage assume a meter. If what you sell gets installed rather than logged into, the strongest signal is age. A unit put in eight years ago against a ten year service life is a buying window on a computable schedule, and the schedule runs whether or not anyone is reading it.
+
+The next one is the document that funded you. Capital work arrives in tranches, and the plan that paid for the first job often approved the second at the same time. Phase two was sitting in the document that funded phase one and nobody read it.
+
+Then coverage inside the account. How many of a customer's sites run your equipment, against how many they operate. That is a number you can state, and almost nobody states it.
+
+And change orders, which are the expansion motion in a project business whether or not anyone calls them that. Value as a share of contract says how much is already happening. Cycle time from agreement to invoiced says what it costs to get.
+
+**Replace NRR where there is nothing recurring under it.** The six parts need a subscription to decompose. Without one, the same questions get answered by repeat purchase rate, time to second order, revenue per account per year trended, and service contract retention. Most equipment companies already have that last number and do not read it as retention.
 
 ### What changes
 

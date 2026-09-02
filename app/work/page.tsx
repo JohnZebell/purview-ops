@@ -352,6 +352,39 @@ const stages: Stage[] = [
   },
 ]
 
+/* The sequence section's three months. Same Part shape the stages use, so
+   they run through StagePart and render as a label plus paragraphs.
+
+   Structural rather than cosmetic. .stageTitle carries margin-bottom 0 and
+   the gap under it comes from .subLabel's margin-top, so an h2 followed
+   directly by a p sits flush. Every situation above is spaced by the label
+   that follows its title, and this section now is too.
+
+   Each opener drops the month name, because the label already says it. */
+const months: Part[] = [
+  {
+    label: 'Month one, the record',
+    paras: [
+      "Whether a deal has an owner, whether a stage means the same thing to two people, whether a lost reason can be grouped, whether the fields that answer next quarter's question exist yet.",
+      'None of that is interesting on its own. It is the thing everything else sits on.',
+    ],
+  },
+  {
+    label: 'Month two, the reporting',
+    paras: [
+      'This starts once there is enough closed history to report on. Cycle length computed against every opportunity created rather than only the ones that closed. Win rate split by whichever populations actually behave differently. Stage conversion and time in stage. Pipeline coverage checked against a real win rate instead of a flat multiple.',
+      'That work is only possible after month one. A report built on a record that does not hold the right fields is a reliable wrong number, which is worse than no number, because people act on it.',
+    ],
+  },
+  {
+    label: 'Month three, the inputs',
+    paras: [
+      'Whether a campaign parameter survives the click, lands in a hidden field, writes to the record, and is still attached when the deal closes. Whether every form on the site completes its path or quietly fails after showing the visitor a confirmation. Whether there is one way to name a campaign or four. Which audiences are still being sent to and which have not been touched in a year.',
+      'This is where most companies want to start, because it is the part that feels like growth. Started here, it produces attribution for a pipeline nobody can measure and campaigns feeding a record nobody trusts.',
+    ],
+  },
+]
+
 function StagePart({ part }: { part: Part }) {
   return (
     <>
@@ -435,46 +468,14 @@ export default function Work() {
           <div className="label">Sequence</div>
           <div>
             <h2 className="stageTitle">Why the order matters</h2>
-            <p>
-              The first month is the record. Whether a deal has an owner,
-              whether a stage means the same thing to two people, whether a lost
-              reason can be grouped, whether the fields that answer next
-              quarter&apos;s question exist yet.
-            </p>
-            <p>
-              None of that is interesting on its own. It is the thing everything
-              else sits on.
-            </p>
-            <p>
-              The second month is the reporting, once there is enough closed
-              history to report on. Cycle length computed against every
-              opportunity created rather than only the ones that closed. Win
-              rate split by whichever populations actually behave differently.
-              Stage conversion and time in stage. Pipeline coverage checked
-              against a real win rate instead of a flat multiple.
-            </p>
-            <p>
-              That work is only possible after the first month. A report built
-              on a record that does not hold the right fields is a reliable
-              wrong number, which is worse than no number, because people act on
-              it.
-            </p>
-            <p>
-              The third month is what feeds the pipeline. Whether a campaign
-              parameter survives the click, lands in a hidden field, writes to
-              the record, and is still attached when the deal closes. Whether
-              every form on the site completes its path or quietly fails after
-              showing the visitor a confirmation. Whether there is one way to
-              name a campaign or four. Which audiences are still being sent to
-              and which have not been touched in a year.
-            </p>
-            <p>
-              This is where most companies want to start, because it is the part
-              that feels like growth. Started here, it produces attribution for
-              a pipeline nobody can measure and campaigns feeding a record
-              nobody trusts.
-            </p>
-            <p>
+            {months.map((month) => (
+              <StagePart part={month} key={month.label} />
+            ))}
+            {/* Separates from month three at the same 2.5rem the months
+                separate from each other, so it reads as the conclusion
+                rather than as more of month three. Not a fourth month, so
+                it takes the spacing without taking a label. */}
+            <p className="auditBody">
               <strong>
                 That sequence is the whole reason for a three month minimum.
               </strong>{' '}

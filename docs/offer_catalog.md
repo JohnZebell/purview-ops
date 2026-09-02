@@ -341,3 +341,87 @@ That line matters. Writing the copy makes this a lead generation service, which 
 ### Currency
 
 Close rate by cell, and the gap between the best and worst cell. Reply rate is reported alongside it and never on its own.
+
+---
+
+## The relationship graph
+
+One table, built from data the client already owns, that answers three different questions.
+
+### What it is
+
+Every person on a revenue team can export their own LinkedIn connections. It is a supported download in account settings and it returns name, current company, position, and the date the connection was made. No scraping, no automation against LinkedIn, no terms problem.
+
+Load those exports into one table keyed on company. Now the company knows, for the first time, who its people actually know.
+
+Most companies have never assembled this. The information exists across thirty individual accounts and nowhere in the business.
+
+### Read one, routing
+
+A lead arrives from a company where somebody on the team already has a connection. Route it to that person rather than by territory or round robin.
+
+This is the routing build with a better input. The rule stays deterministic, and the fallback chain still handles no match, unavailable, duplicate, and existing ownership.
+
+**Currency.** Conversion rate on routed-with-coverage against routed-without, measured after enough volume to compare.
+
+### Read two, coverage gaps
+
+Take the target account list. Check which of those accounts somebody already has a connection inside. The ones with coverage that nobody is working are the finding.
+
+That is the countable market work pointed inward. A named list of accounts where a warm path exists and is going unused.
+
+**Currency.** Count of covered accounts with no open opportunity, and the pipeline value of the ones that convert.
+
+### Read three, sourcing
+
+Run it backwards. Start from the connections, look at where those people work now, and qualify those companies against the ICP.
+
+This surfaces companies that were never on the target list. A thirty person team carries thousands of first degree connections across hundreds of companies, and some of those fit the profile and nobody knew.
+
+**The thing to get right.** A former colleague, a college friend, or someone met at a conference eight years ago is not noise. That is the whole point. A warm path into a company that fits is worth more than a cold path into a better-scored one.
+
+What actually filters out is recruiters, vendors selling to them, and their own current and former coworkers. Those are identifiable by title and company and they come out in one pass.
+
+**Currency.** Qualified companies surfaced that were not on the list, and how many of those convert compared to sourced accounts.
+
+### What has to be built
+
+A coverage table keyed on company and rep, holding a hashed profile identifier and the connection date. No names, no titles.
+
+Company name normalization. LinkedIn exports carry whatever the person typed, so the same company appears four ways and none of them match the CRM.
+
+The ICP qualification pass, which is the same enrichment run on any sourced list.
+
+A refresh cadence and a field recording when each rep last uploaded. Connection exports go stale immediately, and routing on a relationship from a year ago is worse than not routing on it.
+
+### The data model, and why it is also the consent answer
+
+**Names are never stored.** The upload is processed, the company is extracted, and the person is discarded. What persists is that a rep has coverage at a company, plus a hash of the profile URL so the row can be refreshed later. No name, no title, no notes.
+
+That is a better build regardless of privacy, because company to rep is all routing needs. It also removes most of the objection before it gets raised. A rep is uploading a file that produces a company list, not handing over their contacts.
+
+**The hash exists because employers change.** Capture the company once and discard the person, and every job change silently breaks a link. The rep still shows coverage at a company where they now know nobody, and there is no way to detect it. A stable identifier means the company can be re-derived on refresh while the identity stays unreadable.
+
+The general rule underneath. Deriving a value at capture and discarding the input means you can never recompute it when the input changes.
+
+**A rep can clear their own rows.** One control tied to their login that deletes everything derived from their upload. Not a policy someone has to trust, a button they can press. That also handles departure without a separate process.
+
+**What to say when the objection comes.** The value lands on the rep before it lands on the company. A lead routed to someone who already has a path closes faster and on their number. Say that first, then say the names are never stored.
+
+### The limit worth naming
+
+**Connection strength is unknown.** The export carries a date and nothing else. A connection made last month by someone they work with daily looks identical to one from a conference in 2016. And with names discarded, the system cannot even show who the path runs through.
+
+So the system says a path exists and the rep decides whether it is worth using. They still have their own connection list, so they can look it up themselves. The output is a prompt to a person rather than an automatic assignment.
+
+### What it is not
+
+Not second-degree or mutual-connection mapping. Those only render to a logged-in user viewing a profile, which means automating a session on every rep's account. Thirty reps hitting the same accounts on the same schedule is the exact pattern LinkedIn enforces against, and the consequence lands on the reps rather than on the vendor.
+
+First degree is exportable. Second degree is not. The build stops at the line.
+
+### Fit
+
+Needs a revenue team large enough that coverage varies across people. Under five sellers everyone knows the same accounts and the table tells you nothing.
+
+Situations two, three, and four.

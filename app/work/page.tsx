@@ -421,6 +421,71 @@ export default function Work() {
         </section>
       ))}
 
+      {/* SEQUENCE. Not a stage. It has none of the five-part spine, and a
+          fifth entry in `stages` would contradict both the h1 above and the
+          jump nav, which promise four.
+
+          Inline rather than through StagePart because paras are plain
+          strings, so the strong on the closing line has nowhere to live.
+
+          Carries an id so it can be linked, and is deliberately absent from
+          the nav for the same reason it is absent from `stages`. */}
+      <section id="sequence">
+        <div className="shell row">
+          <div className="label">Sequence</div>
+          <div>
+            <h2 className="stageTitle">Why the order matters</h2>
+            <p>
+              The first month is the record. Whether a deal has an owner,
+              whether a stage means the same thing to two people, whether a lost
+              reason can be grouped, whether the fields that answer next
+              quarter&apos;s question exist yet.
+            </p>
+            <p>
+              None of that is interesting on its own. It is the thing everything
+              else sits on.
+            </p>
+            <p>
+              The second month is the reporting, once there is enough closed
+              history to report on. Cycle length computed against every
+              opportunity created rather than only the ones that closed. Win
+              rate split by whichever populations actually behave differently.
+              Stage conversion and time in stage. Pipeline coverage checked
+              against a real win rate instead of a flat multiple.
+            </p>
+            <p>
+              That work is only possible after the first month. A report built
+              on a record that does not hold the right fields is a reliable
+              wrong number, which is worse than no number, because people act on
+              it.
+            </p>
+            <p>
+              The third month is what feeds the pipeline. Whether a campaign
+              parameter survives the click, lands in a hidden field, writes to
+              the record, and is still attached when the deal closes. Whether
+              every form on the site completes its path or quietly fails after
+              showing the visitor a confirmation. Whether there is one way to
+              name a campaign or four. Which audiences are still being sent to
+              and which have not been touched in a year.
+            </p>
+            <p>
+              This is where most companies want to start, because it is the part
+              that feels like growth. Started here, it produces attribution for
+              a pipeline nobody can measure and campaigns feeding a record
+              nobody trusts.
+            </p>
+            <p>
+              <strong>
+                That sequence is the whole reason for a three month minimum.
+              </strong>{' '}
+              Not a contract preference. Each month is built on the one before
+              it, so a shorter engagement does not produce a partial result. It
+              produces the first layer and nothing standing on it.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CLOSE */}
       <section className="tight">
         <div className="shell row">

@@ -2,6 +2,22 @@ import Link from 'next/link'
 import { CTA_HREF, CTA_LABEL } from '../cta'
 import { pageMetadata } from '../seo'
 
+/* Every file that says what this page covers. Change what the page holds
+   and these go stale.
+
+   - The meta description below, and the two comments in this file that
+     count the sections, one on `stack` and one on the appendix
+   - docs/purview_method_page_copy.md
+   - docs/purview_assistant_knowledge_base.md, section 11 and section 7
+   - docs/purview_assistant_spec.md, the linking rule and the never do rule
+   - docs/purview_build_instructions.md, the route table and order of work
+   - docs/purview_site_restructure.md, what this does not change
+   - app/globals.css, the .appendix block, which counts the sections above
+     it
+
+   Record of one pass rather than a current description:
+   docs/purview_copy_pass.md. */
+
 export const metadata = pageMetadata({
   title: 'Method',
   description:

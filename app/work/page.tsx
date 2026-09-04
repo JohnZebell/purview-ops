@@ -2,6 +2,22 @@ import Link from 'next/link'
 import { CTA_HREF, CTA_LABEL } from '../cta'
 import { pageMetadata } from '../seo'
 
+/* Every file that says what this page covers. Change what the page holds
+   and these go stale.
+
+   - The meta description below, and the two comments in this file, one on
+     the stage part shape and one on the sequence section
+   - docs/purview_work_page_copy.md
+   - docs/marketing_ops_sequence_copy.md, the sequence section
+   - docs/purview_assistant_knowledge_base.md, section 11 and section 3
+   - docs/purview_assistant_spec.md, the linking rule
+   - docs/purview_build_instructions.md, the route table and order of work
+   - app/globals.css, the Work page banner, which counts the parts per
+     stage
+
+   Record of one pass rather than a current description:
+   docs/purview_copy_pass.md. */
+
 export const metadata = pageMetadata({
   title: 'Our work',
   description:

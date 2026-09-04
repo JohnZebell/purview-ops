@@ -1,6 +1,21 @@
 import IntakeForm from './IntakeForm'
 import { pageMetadata } from '../seo'
 
+/* Every file that says what this page covers. Change what the page holds
+   and these go stale.
+
+   - The meta description below
+   - docs/purview_audit_page_copy.md
+   - docs/purview_assistant_knowledge_base.md, section 11 and section 4
+   - docs/purview_assistant_spec.md, the linking rule
+   - docs/purview_build_instructions.md, the route table and order of work
+   - docs/scope.md, which restates the seven checks
+   - docs/purview_system_scope.md, the intake form and its fields
+   - docs/purview_hubspot_setup.md, the pipeline behind the form
+
+   Record of one pass rather than a current description:
+   docs/purview_copy_pass.md. */
+
 export const metadata = pageMetadata({
   title: 'The RevOps Audit',
   description:

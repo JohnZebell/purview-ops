@@ -87,7 +87,7 @@ Sits between Work and Method.
 
 ### What it is
 
-The page explaining how institutional and utility buying actually gets decided, and where the public record shows it.
+The page explaining how institutional and utility buying actually gets decided and where the public record shows it, plus what it costs to respond once an RFP posts and to know who is deciding.
 
 **Not a monitoring product page.** The signal half is in the same register as `/method`. It demonstrates that you understand how these buyers work, which is the credibility claim. The response and the committee are a different thing, since both describe work performed. If the signal engine is ever built, this page gains a product section rather than needing a rewrite.
 

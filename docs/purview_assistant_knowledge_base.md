@@ -1,6 +1,6 @@
 # Purview Ops — Assistant Knowledge Base
 
-**Source of truth is n8n, not this file.** The live text is the workflow `Purview Site Assistant` (`0TXvTqC9pxxjeBXD`), node **Assistant**, field `messages.messageValues[0].message`, between the `--- KNOWLEDGE BASE ---` and `--- END KNOWLEDGE BASE ---` markers. Transcribed from `activeVersionId` `dee365d9-8eb0-43ad-b874-df2d0439503a`, published 2026-09-04. Edit n8n first, then sync this file and update the id on this line.
+**Source of truth is n8n, not this file.** The live text is the workflow `Purview Site Assistant` (`0TXvTqC9pxxjeBXD`), node **Assistant**, field `messages.messageValues[0].message`, between the `--- KNOWLEDGE BASE ---` and `--- END KNOWLEDGE BASE ---` markers. Transcribed from `activeVersionId` `80bab5f3-7fc3-4b8f-b6df-e86704e7abf3`, published 2026-09-04. Edit n8n first, then sync this file and update the id on this line.
 
 **Why this file exists.** The knowledge base is the only place several published claims live. It is what the assistant answers from, and anything in it is reachable by any visitor who opens the widget. Until now it had no file in this repo, so none of it could be reviewed, diffed, or checked against the site. `purview_assistant_spec.md` reproduces the prompt around it and elides this part. This is that part.
 
@@ -259,9 +259,25 @@ The sequence, roughly in order of how early it fires.
 
 **What this changes about a pipeline.** Deals waiting on an external clock look identical to deals that stalled. If a CRM cannot distinguish them, cycle length is wrong, forecast is wrong, and a rep deprioritizes an account two months before it was going to move. The fix is a field, so externally-timed deals get benchmarked separately.
 
-**Honest limits.** Coverage is uneven. Knowing an institution has money does not mean they take the call. And the lead times are long, so it cannot be judged on a quarter.
+**Honest limits.** Coverage is uneven. Knowing an institution has money does not mean they take the call. And the lead times are long, so it cannot be judged on a quarter. Response throughput is the exception, because hours per response and responses per cycle move inside one.
 
-**Important.** Purview does not currently sell a monitoring product. This section describes how these buyers work and where the public record is. Do not imply Purview watches, tracks, or alerts on anything.
+### Proposal response
+
+Knowing a solicitation is coming is not the whole problem. Every response still has to be written, whether the relationship is warm or cold and whether the specification was shaped or seen the day it posted. So what it costs to respond sets the ceiling on how much of a market can be pursued at all.
+
+The work is reading the client's own past responses and finding the structure already in them, then building the thing that reproduces it. Not a template someone else designed, and not advice about how they should be writing. A team that has written a hundred of these knows its market better than any outside read of it.
+
+What changes is hours per response and responses per cycle. Win rate does not change, and anyone claiming otherwise in the first quarter is guessing. That question becomes answerable later, once responses share a structure and sections are comparable across submissions.
+
+### Committee mapping
+
+An institutional purchase is decided by a group. Procurement runs the process, engineering writes the requirement, operations lives with the result, and finance signs. A CRM records one contact per opportunity unless someone makes it do otherwise, so a deal that took four people to approve appears in the system as one name.
+
+An open opportunity with a single attached contact, in a market that buys by committee, is not a simple deal. It is one nobody has mapped. Nobody can see who has not been engaged yet, and the whole opportunity rests on one relationship.
+
+What gets recorded is roles rather than names. Who signs, who writes the requirement, who can stop it, and who has to live with it afterward. Those come from asking a rep rather than from inferring an org chart from titles, because a chart assembled from the outside is a guess.
+
+**Important.** Purview does not currently sell a monitoring product. Do not imply Purview watches, tracks, or alerts on public records for anyone. The sequence and the combination rule describe how these buyers work rather than something Purview does. Proposal response and committee mapping are work Purview performs, and both are described above.
 
 ---
 
@@ -310,7 +326,7 @@ Six pages. Link to them when relevant.
 |---|---|
 | `/` | The problem, the four situations, the audit |
 | `/work` | The four situations in detail, what gets built at each |
-| `/timing` | How institutional buyers decide, and where the public record is |
+| `/timing` | How institutional buyers decide, where the public record is, what it costs to respond once an RFP posts, and why a committee purchase needs more than one contact |
 | `/method` | Survivorship, the three engines, the three layers, failure demand, the separation test, the third thing, the lag rule |
 | `/audit` | The full offer and the intake form |
 | `/about` | Who runs it, certifications, common questions |

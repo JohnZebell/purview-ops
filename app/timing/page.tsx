@@ -149,6 +149,7 @@ export default function Timing() {
         <div className="shell row">
           <h2 className="label">The response</h2>
           <div>
+            <h3 className="label subLabel">What the constraint is</h3>
             <p>
               The table above ends where most timing advice ends, which is that
               a posted RFP is too late to influence. That is true for shaping
@@ -169,6 +170,7 @@ export default function Timing() {
               stops being a strategic choice and starts being whatever the team
               could physically produce.
             </p>
+            <h3 className="label subLabel">What is already there</h3>
             <p>
               There is already a structure in those documents. Thirty past
               responses contain a repeated shape, a set of sections that get
@@ -182,6 +184,7 @@ export default function Timing() {
               people who have written a hundred of these know their market
               better than any outside read of it.
             </p>
+            <h3 className="label subLabel">What it changes</h3>
             <p>
               What that changes is hours per response and responses per cycle.
               It does not change win rate, and anyone claiming otherwise in the

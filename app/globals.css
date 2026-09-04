@@ -748,7 +748,7 @@ section:first-of-type {
   max-width: 64ch;
 }
 
-/* Technical appendix. Muted, tighter and smaller than the six sections above
+/* Technical appendix. Muted, tighter and smaller than the seven sections above
    it, so the reader who wants it can find it and everyone else can skip it.
    The leads are ink at 500 rather than bold, which keeps them legible without
    pulling the eye the way the run-in leads elsewhere do. */

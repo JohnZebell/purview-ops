@@ -12,7 +12,7 @@ Written flatter than the other pages on purpose. Fewer turns of phrase, more sta
 
 **Headline:** How the diagnosis works
 
-Six things that shape what we check for and why each one matters. If you want to run any of this yourself, the descriptions here are enough to do it.
+Seven things that shape what we check for and why each one matters. If you want to run any of this yourself, the descriptions here are enough to do it.
 
 ---
 
@@ -119,7 +119,21 @@ It also settles definitional arguments. When sales and marketing disagree about 
 
 ---
 
-## 6. The lag rule
+## 6. The third thing
+
+**Label:** The third thing
+
+Separation gives you two populations that behave differently. It does not tell you why, and the why decides whether the gap is worth anything.
+
+One team ran the numbers and found their California accounts closed at a much higher rate. The finding was real. The explanation was not. Their reps sat on the east coast, so west coast accounts fell inside a wider calling window and got more attempts before anyone gave up. Location was standing in for how many times someone picked up the phone.
+
+Nothing in the data says which of those it is. The gap looks identical either way.
+
+So every separation that survives gets one more question asked of it, which is what else moves alongside it. Territory. Rep tenure. Deal size. When that segment started being sold to at all. If a third thing explains both sides, the segment was never the finding.
+
+---
+
+## 7. The lag rule
 
 **Label:** Lag
 
@@ -159,7 +173,7 @@ We state this at the start of an engagement, not at the end. Otherwise good work
 
 **Headline:** What the audit looks for
 
-The audit runs seven checks against your real data. Three of the six things above are among them. The other three are how the findings get read. It is $1,000, credited against your first month if you keep going. The findings are yours either way.
+The audit runs seven checks against your real data. Three of the seven things above are among them. The other four are how the findings get read. It is $1,000, credited against your first month if you keep going. The findings are yours either way.
 
 [Start with the audit]
 
@@ -171,8 +185,8 @@ The audit runs seven checks against your real data. Three of the six things abov
 
 **No code blocks anywhere on this page.** The one SQL reference is a sentence, not a snippet.
 
-**The technical appendix is visually secondary.** Muted, tighter, smaller. It is there for the reader who wants it and should not compete with the six sections above it.
+**The technical appendix is visually secondary.** Muted, tighter, smaller. It is there for the reader who wants it and should not compete with the seven sections above it.
 
 **Section 1 goes first deliberately.** It is the strongest item on the page and burying it wastes it.
 
-**Three of the six are not checks.** Survivorship, failure demand and the separation test each produce a number, and they appear on the audit list as checks 5, 7 and 6. The three engines, the layers and the lag rule produce nothing measurable. They are how a company gets read and how a finding gets judged. The audit list is seven, it lives on `/audit`, and it overlaps these six in only three places. That is why the opener says the six shape what we check for rather than saying they are what we check for.
+**Four of the seven are not checks.** Survivorship, failure demand and the separation test each produce a number, and they appear on the audit list as checks 5, 7 and 6. The three engines, the layers, the third thing and the lag rule produce nothing measurable. They are how a company gets read and how a finding gets judged. The audit list is seven, it lives on `/audit`, and it overlaps these seven in only three places. That is why the opener says the seven shape what we check for rather than saying they are what we check for.

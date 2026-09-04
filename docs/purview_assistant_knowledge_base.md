@@ -1,6 +1,6 @@
 # Purview Ops — Assistant Knowledge Base
 
-**Source of truth is n8n, not this file.** The live text is the workflow `Purview Site Assistant` (`0TXvTqC9pxxjeBXD`), node **Assistant**, field `messages.messageValues[0].message`, between the `--- KNOWLEDGE BASE ---` and `--- END KNOWLEDGE BASE ---` markers. Transcribed from `activeVersionId` `99cf501e-7935-49e6-862c-700d68db8f93`, published 2026-09-01. Edit n8n first, then sync this file and update the id on this line.
+**Source of truth is n8n, not this file.** The live text is the workflow `Purview Site Assistant` (`0TXvTqC9pxxjeBXD`), node **Assistant**, field `messages.messageValues[0].message`, between the `--- KNOWLEDGE BASE ---` and `--- END KNOWLEDGE BASE ---` markers. Transcribed from `activeVersionId` `dee365d9-8eb0-43ad-b874-df2d0439503a`, published 2026-09-04. Edit n8n first, then sync this file and update the id on this line.
 
 **Why this file exists.** The knowledge base is the only place several published claims live. It is what the assistant answers from, and anything in it is reachable by any visitor who opens the widget. Until now it had no file in this repo, so none of it could be reviewed, diffed, or checked against the site. `purview_assistant_spec.md` reproduces the prompt around it and elides this part. This is that part.
 

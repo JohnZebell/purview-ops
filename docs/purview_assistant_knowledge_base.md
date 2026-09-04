@@ -215,6 +215,18 @@ Four steps. Ask for the stated benchmark. Ask whether it is computed across one 
 
 It also settles definitional arguments, by running both competing definitions against closed won data and letting whichever population converts differently carry the answer. Nobody gets overruled.
 
+### The third thing
+
+Separation gives two populations that behave differently. It does not say why, and the why decides whether the gap is worth anything.
+
+This is the confounding check.
+
+One team found their California accounts closed at a much higher rate. The finding was real and the explanation was not. Their reps sat on the east coast, so west coast accounts fell inside a wider calling window and got more attempts before anyone gave up. Location was standing in for how many times someone picked up the phone.
+
+Nothing in the data says which of those it is, because the gap looks identical either way. So every separation that survives gets one more question asked of it, which is what else moves alongside it. Territory. Rep tenure. Deal size. When that segment started being sold to at all.
+
+If a third thing explains both sides, the segment was never the finding.
+
 ### The lag rule
 
 Any change to how deals are qualified, routed, or worked is invisible in win rate and cycle length until a full cycle has passed. With cycles running six to eighteen months, an intervention in January shows up in the second half of the year.
@@ -299,7 +311,7 @@ Six pages. Link to them when relevant.
 | `/` | The problem, the four situations, the audit |
 | `/work` | The four situations in detail, what gets built at each |
 | `/timing` | How institutional buyers decide, and where the public record is |
-| `/method` | Survivorship, the three engines, the three layers, failure demand, the separation test, the lag rule |
+| `/method` | Survivorship, the three engines, the three layers, failure demand, the separation test, the third thing, the lag rule |
 | `/audit` | The full offer and the intake form |
 | `/about` | Who runs it, certifications, common questions |
 

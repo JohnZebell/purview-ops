@@ -5,7 +5,7 @@ import { pageMetadata } from '../seo'
 export const metadata = pageMetadata({
   title: 'Method',
   description:
-    'Six things that shape what we check for, including the survivorship correction on sales cycle, the three engines, and the separation test.',
+    'Seven things that shape what we check for, including the survivorship correction on sales cycle, the three engines, the separation test, and the confounding check that follows it.',
   path: '/method',
 })
 
@@ -48,7 +48,7 @@ const separationSteps = [
 ]
 
 /* The only place on the site where tools are named, and deliberately quieter
-   than the six sections above it. */
+   than the seven sections above it. */
 const stack = [
   {
     lead: 'Analysis.',
@@ -84,7 +84,7 @@ export default function Method() {
           <div>
             <h1 className="introTitle">How the diagnosis works</h1>
             <p>
-              Six things that shape what we check for and why each one matters.
+              Seven things that shape what we check for and why each one matters.
               If you want to run any of this yourself, the descriptions here are
               enough to do it.
             </p>
@@ -272,7 +272,40 @@ export default function Method() {
         </div>
       </section>
 
-      {/* 6. LAG */}
+      {/* 6. THE THIRD THING */}
+      <section>
+        <div className="shell row">
+          <h2 className="label">The third thing</h2>
+          <div>
+            <p>
+              Separation gives you two populations that behave differently. It
+              does not tell you why, and the why decides whether the gap is
+              worth anything.
+            </p>
+            <p>
+              One team ran the numbers and found their California accounts
+              closed at a much higher rate. The finding was real. The
+              explanation was not. Their reps sat on the east coast, so west
+              coast accounts fell inside a wider calling window and got more
+              attempts before anyone gave up. Location was standing in for how
+              many times someone picked up the phone.
+            </p>
+            <p>
+              Nothing in the data says which of those it is. The gap looks
+              identical either way.
+            </p>
+            <p>
+              So every separation that survives gets one more question asked of
+              it, which is what else moves alongside it. Territory. Rep tenure.
+              Deal size. When that segment started being sold to at all. If a
+              third thing explains both sides, the segment was never the
+              finding.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. LAG */}
       <section>
         <div className="shell row">
           <h2 className="label">Lag</h2>
@@ -310,7 +343,7 @@ export default function Method() {
       </section>
 
       {/* TECHNICAL APPENDIX. Muted, tighter, smaller. It is here for the
-          reader who wants it and should not compete with the six above. */}
+          reader who wants it and should not compete with the seven above. */}
       <section className="tight">
         <div className="shell row">
           <h2 className="label">Stack</h2>
@@ -347,7 +380,7 @@ export default function Method() {
             <h2 className="closeTitle">What the audit looks for</h2>
             <p className="closeSub">
               The audit runs seven checks against your real data. Three of the
-              six things above are among them. The other three are how the
+              seven things above are among them. The other four are how the
               findings get read. It is $1,000, credited against your first month
               if you keep going. The findings are yours either way.
             </p>

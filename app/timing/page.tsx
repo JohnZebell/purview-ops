@@ -6,14 +6,11 @@ import { pageMetadata } from '../seo'
    and these go stale.
 
    - The meta description below, and the comment above `sequence`
+   - docs/purview_timing_page_copy.md
    - docs/purview_assistant_knowledge_base.md, section 11 and section 8
    - docs/purview_assistant_spec.md, the linking rule and the never do rule
    - docs/purview_site_restructure.md, section 4 and what this does not
-     change
-
-   The shortest list of the six, and the only page with no copy doc. The
-   restructure doc carries the copy instead, which is why it is the file
-   that goes stale first. */
+     change */
 
 export const metadata = pageMetadata({
   title: 'Timing',

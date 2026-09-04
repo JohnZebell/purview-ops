@@ -2,6 +2,23 @@ import Link from 'next/link'
 import { CTA_HREF, CTA_LABEL } from '../cta'
 import { pageMetadata, SITE_URL } from '../seo'
 
+/* Every file that says what this page covers. Change what the page holds
+   and these go stale.
+
+   - VALUE_PROPOSITION below, which is the meta description and the opening
+     paragraph, plus the comment above it
+   - docs/purview_about_page_copy.md
+   - docs/purview_assistant_knowledge_base.md, section 11 and section 9
+   - docs/purview_build_instructions.md, the route table and order of work
+   - docs/purview_site_restructure.md, the market language table
+
+   Not in the assistant linking rule in docs/purview_assistant_spec.md.
+   Neither is the home page. Both are in section 11 and nothing routes the
+   assistant to either.
+
+   Record of one pass rather than a current description:
+   docs/purview_copy_pass.md. */
+
 /* The opening value proposition. Build notes say this should read identically
    here, on the LinkedIn company page and in any directory listing, because
    LLMs cross reference them and a mismatch reads as low confidence about what

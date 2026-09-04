@@ -2,6 +2,21 @@ import Link from 'next/link'
 import { CTA_HREF, CTA_LABEL } from './cta'
 import { pageMetadata, SITE_DESCRIPTION } from './seo'
 
+/* Every file that says what this page covers. Change what the page holds
+   and these go stale.
+
+   - app/seo.ts, SITE_DESCRIPTION. The meta description below, the layout
+     default, the social card and the hero subhead all read from it.
+   - docs/purview_homepage_copy.md
+   - docs/purview_build_instructions.md, section 4, the structure section
+     by section
+   - docs/purview_site_restructure.md, section 3, why the differentiator
+     leads with public timing
+   - docs/purview_assistant_knowledge_base.md, section 11
+
+   Records of one pass rather than current descriptions, so stale by
+   design: docs/purview_copy_pass.md and docs/purview-home-v2.html. */
+
 /* No title. The home page takes the layout's default rather than running
    through the `%s · Purview Ops` template and saying the name twice. */
 export const metadata = pageMetadata({

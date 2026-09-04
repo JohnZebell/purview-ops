@@ -2,6 +2,19 @@ import Link from 'next/link'
 import { CTA_HREF, CTA_LABEL } from '../cta'
 import { pageMetadata } from '../seo'
 
+/* Every file that says what this page covers. Change what the page holds
+   and these go stale.
+
+   - The meta description below, and the comment above `sequence`
+   - docs/purview_assistant_knowledge_base.md, section 11 and section 8
+   - docs/purview_assistant_spec.md, the linking rule and the never do rule
+   - docs/purview_site_restructure.md, section 4 and what this does not
+     change
+
+   The shortest list of the six, and the only page with no copy doc. The
+   restructure doc carries the copy instead, which is why it is the file
+   that goes stale first. */
+
 export const metadata = pageMetadata({
   title: 'Timing',
   description:

@@ -5,7 +5,7 @@ import { pageMetadata } from '../seo'
 export const metadata = pageMetadata({
   title: 'Timing',
   description:
-    'How institutional and utility purchases actually form, in order, and where each step appears in the public record before anyone issues an RFP.',
+    'How institutional and utility purchases form in public before anyone issues an RFP, and what it costs to respond to one and to know who is deciding.',
   path: '/timing',
 })
 
@@ -13,9 +13,13 @@ export const metadata = pageMetadata({
    is the argument: everything above it happens before the thing most vendors
    wait for.
 
-   `where` names a category of source rather than a service on purpose. This
-   page describes where the record lives. It does not claim anyone is reading
-   it on your behalf. */
+   `where` names a category of source rather than a service, so the table
+   still only says where the record lives. The page around it no longer does.
+   The response and the committee describe work performed, and they sit next
+   to the sections they belong with rather than grouped together, so the two
+   kinds of claim interleave. The response answers the last row of the table.
+   The committee pairs with Pipeline, which is the other section about what a
+   CRM fails to record. */
 const sequence = [
   {
     event: 'A master plan names a facility and a year',
@@ -140,7 +144,62 @@ export default function Timing() {
         </div>
       </section>
 
-      {/* 2. COMBINATION */}
+      {/* 2. THE RESPONSE */}
+      <section>
+        <div className="shell row">
+          <h2 className="label">The response</h2>
+          <div>
+            <p>
+              The table above ends where most timing advice ends, which is that
+              a posted RFP is too late to influence. That is true for shaping
+              the requirement and false for everything after it.
+            </p>
+            <p>
+              The response still has to be written. It gets written whether the
+              relationship is warm or cold, whether you helped shape the spec or
+              saw it the day it posted, and whether you expect to win. So the
+              cost of responding is not a marketing expense. It is the ceiling
+              on how much of your market you can pursue at all.
+            </p>
+            <p>
+              Teams selling into institutions usually discover this the same
+              way. A handful of people spend weeks on documents that run to a
+              hundred pages, most of it assembled by hand from previous
+              submissions nobody organized, and the number of bids per cycle
+              stops being a strategic choice and starts being whatever the team
+              could physically produce.
+            </p>
+            <p>
+              There is already a structure in those documents. Thirty past
+              responses contain a repeated shape, a set of sections that get
+              rewritten every time, and a set of fields that change per issuer.
+              Nobody wrote it down because nobody had to.
+            </p>
+            <p>
+              The work is reading what is already there and building the thing
+              that reproduces it. Not a template someone else designed, and not
+              advice about how the responses should be written differently. The
+              people who have written a hundred of these know their market
+              better than any outside read of it.
+            </p>
+            <p>
+              What that changes is hours per response and responses per cycle.
+              It does not change win rate, and anyone claiming otherwise in the
+              first quarter is guessing, because the output is the same document
+              made a different way.
+            </p>
+            <p>
+              The win rate question becomes answerable later, and only because
+              of this. Once responses share a structure, sections are comparable
+              across submissions, and it is possible to ask which ones show up
+              in the wins. That question cannot be asked of thirty documents
+              written from scratch, because nothing in them lines up.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. COMBINATION */}
       <section>
         <div className="shell row">
           <h2 className="label">Combination</h2>
@@ -160,7 +219,7 @@ export default function Timing() {
         </div>
       </section>
 
-      {/* 3. PIPELINE */}
+      {/* 4. PIPELINE */}
       <section>
         <div className="shell row">
           <h2 className="label">Pipeline</h2>
@@ -185,7 +244,47 @@ export default function Timing() {
         </div>
       </section>
 
-      {/* 4. LIMITS */}
+      {/* 5. THE COMMITTEE */}
+      <section>
+        <div className="shell row">
+          <h2 className="label">The committee</h2>
+          <div>
+            <p>
+              An institutional purchase is decided by a group. Procurement runs
+              the process, engineering writes the requirement, operations lives
+              with the result, and finance signs. Sometimes a regulatory or
+              board step sits on top of all of it.
+            </p>
+            <p>
+              A CRM records one contact per opportunity unless someone makes it
+              do otherwise. So the deal that took four people to approve appears
+              in the system as one name.
+            </p>
+            <p>
+              That looks tidy and it hides two things. Nobody can see who has
+              not been engaged yet, so the gap in the map is invisible until
+              the deal stalls for a reason nobody can name. And the whole
+              opportunity rests on one relationship, which means it is one job
+              change away from having no anchor inside the account.
+            </p>
+            <p>
+              An open opportunity with a single attached contact, in a market
+              that buys by committee, is not a simple deal. It is one nobody has
+              mapped.
+            </p>
+            <p>
+              What gets recorded is roles rather than names. Who signs, who
+              writes the requirement, who can stop it, and who has to live with
+              it afterward. Those are questions a rep can answer from a call.
+              They are not something to infer from titles, because an org chart
+              assembled from the outside is a guess, and a guess in this field
+              is worse than an empty one.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. LIMITS */}
       <section>
         <div className="shell row">
           <h2 className="label">Limits</h2>
@@ -202,7 +301,8 @@ export default function Timing() {
             <p>
               And the lead times are long. A signal firing today may not become
               a purchase for a year, which means it cannot be judged on a
-              quarter.
+              quarter. Response throughput is the exception, because hours per
+              response and responses per cycle move inside one.
             </p>
           </div>
         </div>

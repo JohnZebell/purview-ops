@@ -128,12 +128,27 @@ const CONTACT_PROPERTIES = [
   ]),
   textarea('pv_untrusted_number', 'Number they do not trust'),
   dropdown('pv_stage_layer', 'Stage assessment', STAGE_LAYER_OPTIONS),
+  // Must stay in step with the `status` column on pv_intake_raw so the two
+  // remain reconcilable (purview_hubspot_setup.md 2.5). New values are appended
+  // rather than slotted in, so existing options keep their displayOrder.
+  //
+  // `complete` is the terminal success status. Without it a finished row would
+  // sit at `received`, and the daily verification job alerts on any `received`
+  // row older than an hour -- so every good submission would trip it. `enriched`
+  // was the alternative and would have been a lie until enrichment is built.
+  //
+  // `duplicate_submit` is a double submit: the same email seen again within two
+  // minutes, meaning a double click or a retry. Deliberately not `duplicate`,
+  // which is a genuine repeat weeks later and still alerts. Two values so each
+  // can be counted separately.
   dropdown('pv_intake_status', 'Intake status', [
     ['received', 'Received'],
     ['enriched', 'Enriched'],
     ['failed_enrich', 'Failed enrich'],
     ['invalid_email', 'Invalid email'],
     ['duplicate', 'Duplicate'],
+    ['duplicate_submit', 'Duplicate submit'],
+    ['complete', 'Complete'],
   ]),
   text('pv_source_page', 'Source page'),
   { name: 'pv_submitted_at', label: 'Submitted at', type: SUBMITTED_AT_TYPE, fieldType: 'date' },
@@ -248,15 +263,35 @@ async function getProperty(objectType, name) {
 
 // --- Apply ---------------------------------------------------------------------
 
+// Creates a missing property, and brings an existing one's option set back in
+// line with the spec when it has drifted.
+//
+// Options only. Type, fieldType and label are reported as DIFFER by the verify
+// pass but never patched here: changing a live property's type is destructive
+// and is a decision, not a reconciliation. Adding an enum value is neither --
+// it is additive and the write it unblocks would otherwise fail silently, which
+// is the failure mode 2.1 warns about.
 async function ensureProperty(objectType, spec, apply) {
   const live = await getProperty(objectType, spec.name)
-  if (live) return { spec, action: 'exists' }
-  if (!apply) return { spec, action: 'would-create' }
-  await api('POST', `/crm/v3/properties/${objectType}`, {
-    ...spec,
-    groupName: PROPERTY_GROUPS[objectType],
+
+  if (!live) {
+    if (!apply) return { spec, action: 'would-create' }
+    await api('POST', `/crm/v3/properties/${objectType}`, {
+      ...spec,
+      groupName: PROPERTY_GROUPS[objectType],
+    })
+    return { spec, action: 'created' }
+  }
+
+  const drifted = diffProperty(spec, live).some((p) => p.startsWith('options '))
+  if (!drifted) return { spec, action: 'exists' }
+  if (!apply) return { spec, action: 'would-patch' }
+
+  // PATCH replaces the whole option list, so the full set goes up, not a delta.
+  await api('PATCH', `/crm/v3/properties/${objectType}/${spec.name}`, {
+    options: spec.options,
   })
-  return { spec, action: 'created' }
+  return { spec, action: 'patched' }
 }
 
 // Renaming `default` and replacing its stages destroys the seven stock stages.
@@ -273,6 +308,24 @@ async function auditPipeline(apply) {
     ],
     limit: 1,
   })
+  // Already correct? Then leave it entirely alone. A PUT here would rebuild the
+  // stages and HubSpot would mint NEW numeric stage ids, invalidating the ones
+  // recorded in section 3 and hardcoded in the n8n workflow -- which fail
+  // silently, since a bad dealstage is just a write that does not land. Being
+  // re-runnable is the whole point of the script, so this check is load-bearing
+  // rather than an optimisation.
+  const wantStages = AUDIT_STAGES.map((s) => s.label)
+  const haveStages = [...target.stages]
+    .sort((a, b) => a.displayOrder - b.displayOrder)
+    .map((s) => s.label)
+  if (
+    target.label === PIPELINE_LABEL &&
+    wantStages.length === haveStages.length &&
+    wantStages.every((w, i) => w === haveStages[i])
+  ) {
+    return { id: target.id, from: target.label, action: 'exists' }
+  }
+
   if (search.total > 0) {
     throw new Error(
       `Pipeline "${target.label}" has ${search.total} deal(s) on it. Replacing its ` +

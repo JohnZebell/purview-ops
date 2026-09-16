@@ -159,30 +159,66 @@ Computed in n8n from `pv_customer_band`, not entered by the person.
 
 **Every external call has an error path.** Not a global error workflow, an explicit path per call, because the recovery differs. A failed enrich is recoverable. A failed HubSpot upsert is not.
 
+### Where capture lives
+
+Capture is the Next.js route, `app/api/intake/route.ts`, not n8n. The route writes the raw payload to Supabase and returns a real 500 to the visitor if that write fails, then fires the n8n webhook. n8n never receives a submission that was not already saved.
+
+An earlier draft of this section put the webhook and the raw write both inside n8n. That was written before the route existed, and the route is right: capture is the only step with no second copy, so the person who typed the answers is the last remaining record of them and has to be told when it fails. A webhook that accepts and then fails cannot tell them. Every later step can fail quietly precisely because capture already holds the payload.
+
+So the sequence below starts after the raw write, and step numbers no longer match the node list one for one.
+
 ### Node sequence
 
+n8n workflow `Purview Intake — HubSpot`, id `773lJFwVvwVPQhuX`. 21 nodes.
+
 ```
- 1  Webhook                  POST /purview-intake
- 2  Write raw payload        Supabase table pv_intake_raw, before anything else
- 3  Normalize                email lowercased, all fields trimmed, nothing else changed
- 4  Validate email format    regex
-      ├─ pass  →  continue
-      └─ fail  →  set status invalid_email, alert, stop. Record stays.
+    Webhook                  POST /purview-intake, responds immediately
+                             body { row_id, payload }, already saved
+ 1  Normalize                email lowercased and trimmed, everything else
+                             trimmed only. Names, company names, the free text
+                             and the website keep their casing
+ 2  Idempotency check        same email in pv_intake_raw inside two minutes,
+                             excluding this row
+      ├─ none     →  continue
+      └─ found    →  set status duplicate_submit, stop. No HubSpot call, no
+                     alert. A double click is noise, not a lead event
+ 3  Validate email format    regex, server side
+      ├─ pass     →  continue
+      └─ fail     →  set status invalid_email, alert, stop. Record stays
+ 4  Derive stage layer       map customer band per the table above
  5  Check duplicate          query HubSpot by email
-      ├─ new       →  continue
-      └─ existing  →  set status duplicate, update rather than create, alert
- 6  Derive stage layer       map customer band per the table above
- 7  Enrich company           optional, cheap, from the domain
-      ├─ success  →  continue
-      └─ fail     →  set status failed_enrich, continue anyway
- 8  Upsert HubSpot contact   all standard and custom properties
-      ├─ success  →  continue
-      └─ fail     →  alert, retry with backoff, record already saved at step 2
- 9  Create HubSpot deal      in the Audit pipeline, stage Intake received
-10  Notify                   with company, stage layer, and the untrusted-number
-                             answer in the body
-11  Update raw record        write back the HubSpot contact and deal IDs
+      ├─ new      →  continue
+      └─ existing →  update the contact rather than create, set status
+                     duplicate, alert, stop. No second deal
+ 6  Create HubSpot contact   all standard and custom properties
+      └─ fail     →  record error_detail, alert, retry with backoff
+ 7  Create HubSpot deal      pipeline `default`, stage `4310639299`, associated
+                             to the contact
+      └─ fail     →  record error_detail, alert, retry with backoff
+ 8  Notify                   company, stage layer, the untrusted-number answer,
+                             and the deal url
+ 9  Write back               hs_contact_id, hs_deal_id, status complete
+10  Mark contact complete    pv_intake_status complete, so the row and the
+                             contact stay reconcilable
 ```
+
+Step 4 runs before step 5, where an earlier draft had it after. The duplicate branch at step 5 updates the contact with the full property set, and that set includes `pv_stage_layer`, so the layer has to exist by then. It is pure computation with no external call, so moving it earlier costs nothing.
+
+### Enrichment is deferred, not dropped
+
+Company enrichment from the domain was step 7 of the original sequence. It is not built. It is optional in this section, nothing downstream depends on it, and skipping it kept the first working pipeline smaller.
+
+Two consequences worth holding on to. `company` is left blank on the contact rather than defaulted to the domain: the website field already carries the domain, so filling `company` in would destroy the ability to tell later whether a value was enriched or invented. Blank is honest and stays a usable signal for when enrichment lands. And `failed_enrich` is a live value in `pv_intake_status` that nothing currently writes.
+
+### Failure paths
+
+Every external call has its own error output rather than one global handler, because the recovery differs.
+
+Three failures have distinct recoveries and distinct paths: a double submit sets `duplicate_submit` and stops silently, an invalid email sets `invalid_email` and alerts, a genuine repeat sets `duplicate` and alerts. None of them reach the shared path.
+
+The HubSpot and Supabase write failures share one recorder and one alert, because their recovery is genuinely identical: retries are exhausted, the raw row already exists, a human picks it up. That path writes `error_detail` and deliberately does **not** change `status`, so the row stays visible to the verification job as stalled rather than being quietly marked resolved.
+
+Retries are n8n's `retryOnFail`, three tries at five second intervals. Fixed interval, not exponential — enough for a transient 429 or 503, which is what these actually fail with.
 
 ### Storage
 
@@ -205,7 +241,21 @@ create index on pv_intake_raw (status);
 create index on pv_intake_raw (email);
 ```
 
-`status` values match `pv_intake_status` in HubSpot so the two stay reconcilable.
+`status` values match `pv_intake_status` in HubSpot so the two stay reconcilable. Seven of them:
+
+| Status | Set by | Terminal |
+|---|---|---|
+| `received` | the route's raw write, as the column default | no |
+| `complete` | write back, after the deal exists | yes |
+| `duplicate_submit` | idempotency check, same email inside two minutes | yes |
+| `invalid_email` | server side validation | yes |
+| `duplicate` | HubSpot already had the email | yes |
+| `failed_enrich` | nothing yet, enrichment is deferred | — |
+| `enriched` | nothing yet, enrichment is deferred | — |
+
+`complete` exists because the verification job alerts on any row still at `received` after an hour, so a finished row needs somewhere else to be. `enriched` would have been a lie until enrichment is built.
+
+`duplicate_submit` and `duplicate` are deliberately separate. The first is one person clicking twice or a retry firing, and is silent. The second is a genuine repeat weeks later, and alerts. Collapsing them would make both uncountable.
 
 ### The notification
 

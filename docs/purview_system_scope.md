@@ -88,7 +88,9 @@ Note that `Not sure` on CRM is itself a finding, not a missing value. Do not tre
 | `pv_stage_layer` | Stage assessment | Dropdown | `seed`, `series_a`, `series_b`, `series_c` |
 | `pv_intake_status` | Intake status | Dropdown | `received`, `enriched`, `failed_enrich`, `invalid_email`, `duplicate` |
 | `pv_source_page` | Source page | Single-line text | |
-| `pv_submitted_at` | Submitted at | Date picker | |
+| `pv_submitted_at` | Submitted at | Date and time | |
+
+`pv_submitted_at` is HubSpot type `datetime`, not `date`. "Date picker" is HubSpot's UI name for `date`, which stores a day with no time; a submission timestamp without time of day loses information that cannot be recovered afterward. The field type is still the date picker widget either way, which is why the two are easy to confuse.
 
 ### Custom deal properties
 
@@ -98,10 +100,15 @@ Note that `Not sure` on CRM is itself a finding, not a missing value. Do not tre
 | `pv_intake_complete` | Intake complete | Single checkbox |
 | `pv_access_granted` | CRM access granted | Single checkbox |
 | `pv_findings_sent` | Findings sent | Single checkbox |
+| `pv_closed_lost_reason` | Closed lost reason | Dropdown, options below |
+
+`pv_closed_lost_reason` is a custom property, deliberately not the standard `closed_lost_reason`. The standard one exists on deals already but is free text, and converting a standard property changes a field other HubSpot tooling and reporting may already read. A custom property leaves it untouched.
 
 ### Pipeline
 
 One pipeline, `Audit`, with these stages. Every stage entry must be driven by a defined event, never by dragging a card. This is the instrumentation principle applied to Purview's own instance.
+
+It is the portal's original pipeline, renamed. Free tier allows one deal pipeline and one already existed, so `Audit` is HubSpot's `default` pipeline relabelled with its seven stock stages replaced. The pipeline id is still the literal string `default` — n8n writes that, not `audit`.
 
 | Stage | Entry criteria, checkable |
 |---|---|
@@ -111,9 +118,21 @@ One pipeline, `Audit`, with these stages. Every stage entry must be driven by a 
 | Analysis running | Checks started |
 | Findings delivered | `pv_findings_sent` is true |
 | Retainer started | Closed won |
-| No decision | Closed lost, reason required |
+| No decision | Closed lost, reason required — enforced in n8n, see below |
 
-Closed lost reason is a required enum, not free text. Options: `no_access`, `no_budget`, `timing`, `did_it_themselves`, `hired_internally`, `no_response`, `not_a_fit`.
+Stage ids are HubSpot-generated numerics, not slugs: the stages above are `4310639299` through `4310639305` in listed order. n8n sets `dealstage` to those ids. A label will not work, and the ids are portal-specific, so re-read them rather than copying these if the pipeline is ever rebuilt.
+
+Stage probabilities are placeholders, ascending 0.1 through 0.8 across the five open stages, with the two closed stages fixed by HubSpot at 1.0 and 0.0. HubSpot requires a probability on every deal stage; nothing here reads it. Stages gate on defined events, not on a forecast weight.
+
+Closed lost reason is an enum, not free text. Options: `no_access`, `no_budget`, `timing`, `did_it_themselves`, `hired_internally`, `no_response`, `not_a_fit`.
+
+### Required is not enforced in HubSpot
+
+It cannot be, on this tier. HubSpot has two mechanisms for requiring a property and both are paid: marking it required on the create form needs Starter or above, and conditional stage logic — requiring it on entry to a stage, which is what this pipeline actually wants — needs Professional or above. This instance is free.
+
+So the requirement moves, rather than being dropped. n8n enforces it at write time and refuses to set the No decision stage without a reason. The daily verification job in section 8 of `purview_hubspot_setup.md` flags any closed lost deal carrying a blank `pv_closed_lost_reason`.
+
+That is the same pattern as the rest of the system: the check catches what the platform will not. Worth stating plainly because it is also the thing being sold — an unenforceable field with a check behind it is honest instrumentation, an unenforceable field with nothing behind it is the gap the audit looks for.
 
 ### Stage layer derivation
 

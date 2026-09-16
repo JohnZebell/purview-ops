@@ -21,8 +21,6 @@
 
 import { after } from 'next/server'
 
-import { notifyIntake } from '../../notify'
-
 const TABLE = 'pv_intake_raw'
 
 export async function POST(request: Request) {
@@ -55,22 +53,21 @@ export async function POST(request: Request) {
     return Response.json({ ok: false }, { status: 500 })
   }
 
-  /* Only once the row exists. An alert about a lead that was not saved would
-     point at nothing, and the capture failure above is already loud. Kept
-     outside the try so a notifier problem can never be logged as a capture
-     problem. notifyIntake handles its own errors and does not throw. */
+  /* Only once the row exists. Handing n8n a lead that was not saved would
+     point it at nothing, and the capture failure above is already loud. Kept
+     outside the try so a pipeline problem can never be logged as a capture
+     problem. startPipeline handles its own errors and does not throw.
+
+     Everything after capture is n8n's, per section 4 of
+     purview_system_scope.md. Scheduled with after() rather than awaited: the
+     visitor's answers are already saved, so making them wait on HubSpot buys
+     them nothing and costs them seconds.
+
+     after() rather than a floating promise. An un-awaited promise is not
+     "fire and forget" on a serverless host, it is "fire and maybe get killed
+     mid-flight" once the response returns. after() is the primitive that
+     keeps the invocation alive until the work settles. */
   if (rowId) {
-    await notifyIntake(payload as Record<string, unknown>, rowId)
-
-    /* Everything after capture is n8n's, per section 4 of
-       purview_system_scope.md. Scheduled with after() rather than awaited: the
-       visitor's answers are already saved, so making them wait on HubSpot buys
-       them nothing and costs them seconds.
-
-       after() rather than a floating promise. An un-awaited promise is not
-       "fire and forget" on a serverless host, it is "fire and maybe get killed
-       mid-flight" once the response returns. after() is the primitive that
-       keeps the invocation alive until the work settles. */
     after(() => startPipeline(payload as Record<string, unknown>, rowId))
   }
 

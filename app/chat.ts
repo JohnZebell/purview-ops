@@ -7,9 +7,8 @@
    of it.
 
    Set it back to '' and the widget renders nothing at all, which is how this
-   shipped before n8n existed. Same rule as DISCORD_WEBHOOK_URL in
-   app/notify.ts, and the switch to reach for if the assistant ever has to come
-   off the site without a rollback.
+   shipped before n8n existed, and the switch to reach for if the assistant
+   ever has to come off the site without a rollback.
 
    An answer also needs N8N_CHAT_WEBHOOK_URL set in the environment. Without it
    the route still records the question and returns a failure, which is the

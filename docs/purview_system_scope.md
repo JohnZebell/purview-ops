@@ -128,6 +128,16 @@ It is the portal's original pipeline, renamed. Free tier allows one deal pipelin
 
 Stage ids are HubSpot-generated numerics, not slugs: the stages above are `4310639299` through `4310639305` in listed order. n8n sets `dealstage` to those ids. A label will not work, and the ids are portal-specific, so re-read them rather than copying these if the pipeline is ever rebuilt.
 
+### Deal name
+
+The website's hostname, then ` Audit`. A bare domain and a full URL both reduce to the same thing: scheme, path, query and `www.` are stripped and the result is lowercased. `https://Example.com/Solar` and `example.com` both give `example.com Audit`. Falls back to the email domain, then the email itself.
+
+The agreed rule was `{company or domain} Audit` and it did not survive contact with real submissions. `company` is never written — the form does not collect it and enrichment is deferred — so every name fell through to the email domain, and the first three real deals came out as `gmail.com Audit`, `gmail.com Audit` and `gmail.com Audit`. Identical, and identifying nobody.
+
+The website is the closest thing to a company identifier the form actually collects, so it goes first. Two submissions from the same company will now agree, which is the point.
+
+It is not validated or corrected. One of those first three submissions carried `purrviewops.com`, a typo of the person's own domain, and the deal is named after the typo. That is deliberate: the pipeline stores what people typed, and a name that quietly disagrees with the raw payload is worse than an ugly one.
+
 Stage probabilities are placeholders, ascending 0.1 through 0.8 across the five open stages, with the two closed stages fixed by HubSpot at 1.0 and 0.0. HubSpot requires a probability on every deal stage; nothing here reads it. Stages gate on defined events, not on a forecast weight.
 
 Closed lost reason is an enum, not free text. Options: `no_access`, `no_budget`, `timing`, `did_it_themselves`, `hired_internally`, `no_response`, `not_a_fit`.
@@ -242,6 +252,18 @@ So: **any node that can legitimately return nothing needs `alwaysOutputData`**, 
 Worth recording how this survived. `n8n_validate_workflow` flagged it — *"Consider enabling alwaysOutputData on Recent submit? to capture error responses for debugging"* — on the first validation pass, and it was dismissed as generic advice because it was phrased as a debugging convenience and arrived alongside a dozen other boilerplate suggestions. It was not a debugging convenience. It was the bug, named correctly, and ignored. The validator was right and the reviewer was wrong, which is the more useful half of the lesson.
 
 It was caught only because the test read the result back from Supabase and HubSpot rather than trusting the execution status. The execution said success.
+
+### A node runs once per input item
+
+The other half of the same lesson, and it fails in the opposite direction: instead of a branch going quiet, work silently happens N times.
+
+An n8n node executes once for every item it receives. So in a chain of queries, when one returns four rows, every node below it runs four times and returns its own rows four times over. Nothing errors. The execution is a success. The numbers are just wrong, and wrong in a way that scales with traffic — so it looks fine on a quiet day and worst on a busy one.
+
+The verification job was built as a chain of four queries and hit exactly this. A single stalled row was reported as **four** stalled rows, because the window query above it had returned four, and each of those four drove another pass. It was also firing four HubSpot searches per run instead of one. On a fifty-submission day that is fifty searches and a fifty-times-inflated count.
+
+The fix is `executeOnce` on any node whose result does not depend on its input. All four query nodes take nothing from the item flowing in — they compute their own time windows — so running once is both the correct answer and N-1 fewer API calls.
+
+Worth noting what caught it. The all-clear run passed cleanly and proved nothing, because with zero findings there was nothing to multiply. The bug only appeared once a row was deliberately planted to force the warning path. A checker whose failure branch has never run is not a checker, and that applies to this one as much as to the pipeline it watches.
 
 ### Webhook authentication
 

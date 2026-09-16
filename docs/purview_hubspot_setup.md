@@ -254,11 +254,53 @@ Scheduled daily. This is the piece almost nobody builds and the reason the whole
 
 It checks the pipeline is working rather than reporting that it is.
 
-- Any `pv_intake_raw` row with status `received` older than one hour. The pipeline stalled after capture.
-- Count of HubSpot contacts created in the last 24 hours against count of raw rows. A mismatch is a silent failure.
-- Any row with `hs_contact_id` null and status not in the failure set.
+n8n workflow `Purview Intake — Verification`, id `PQBxFZSgRJPnyudz`. 8 nodes, 08:00 America/Denver.
 
-Alert on any of the three.
+Every check reads Supabase and HubSpot directly. None of them consult n8n execution history, because a checker that asks the thing it is checking whether it worked is not a check. The intake pipeline reported `success` on every one of its own broken runs during testing.
+
+### The three checks
+
+**1. Stalled after capture.** Any `pv_intake_raw` row still at status `received` more than an hour after it arrived. Capture worked and nothing after it did.
+
+**2. Window mismatch.** Rows in the last 24 hours at status `complete`, against HubSpot contacts created in the same window carrying `pv_intake_status`.
+
+**3. Missing contact id.** Any row with `hs_contact_id` null, status outside the failure set, older than an hour. The one hour floor keeps a just-captured row — which has not reached HubSpot yet by design — out of the result.
+
+The failure set is `invalid_email` and `duplicate_submit`, and only those. They are the two statuses where no contact is the correct outcome. Everything else with a null `hs_contact_id` is a bug or a stall.
+
+### Why check 2 is not the check this section used to describe
+
+It used to say: count HubSpot contacts created in 24 hours against count of raw rows. That was written before the statuses existed, and it is wrong against the schema that shipped.
+
+Three statuses legitimately produce no new contact. `invalid_email` and `duplicate_submit` create nothing at all, and `duplicate` updates an existing contact rather than creating one. A raw-count comparison therefore alerts on every typo and every double click, and a check that cries wolf daily is one nobody reads — which is worse than not having it.
+
+So the comparison is like with like: rows that *should* have produced a new contact, against contacts that were actually created.
+
+The `pv_intake_status` filter on the HubSpot side is load-bearing for the same reason in the other direction. Without it, a contact added by hand or by another integration counts toward the total and can mask a real miss — the pipeline fails to create one, someone types one in, the numbers balance, and nothing is reported.
+
+### It posts every day
+
+Findings when there are any, an all clear when there are not.
+
+A checker that is silent when healthy cannot be told apart from a checker that is switched off, deactivated, unscheduled or erroring before it reaches its alert — which is precisely the failure class this job exists to catch, reproduced inside the job. Posting daily makes the *absence* of the message the signal.
+
+The all clear carries the counts it checked, not only the verdicts, including when the count is zero:
+
+```
+**Intake verification — 16 Sep**
+
+✅ No rows stalled at received over 1h
+✅ Window matches: 0 complete, 0 contacts created
+✅ No rows missing hs_contact_id
+
+Checked 0 row(s) received in the last 24h.
+```
+
+"Checked 0 rows" is the sentence that separates a quiet day from a day the checker did not really run. Three green ticks with no counts would read identically in both cases.
+
+### A failed check is not a pass
+
+Each of the four queries has its own error output to a separate alert that says the verification could not run, and says explicitly that today's result is an unknown rather than a pass. An unreachable Supabase or a HubSpot 429 must never render as a clean bill of health.
 
 ---
 

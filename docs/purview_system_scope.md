@@ -309,10 +309,14 @@ HubSpot: {deal_url}
 A scheduled job, daily, that checks the pipeline is actually working rather than reporting that it is.
 
 - Any `pv_intake_raw` row with status `received` older than one hour. Means the pipeline stalled after capture.
-- Count of HubSpot contacts created in the last 24 hours against count of raw rows. A mismatch is a silent failure.
-- Any row with `hs_contact_id` null and status not in the failure set.
+- Rows in the last 24 hours at status `complete`, against HubSpot contacts created in the same window carrying `pv_intake_status`. A mismatch is a silent failure.
+- Any row with `hs_contact_id` null, status outside the failure set, older than an hour.
 
-Alert on any of the three. This is the piece almost nobody builds and it is the reason the whole thing is worth pointing at.
+The failure set is `invalid_email` and `duplicate_submit` only.
+
+It posts every day — findings when there are any, an all clear carrying the counts when there are not — so the absence of the message is the signal. Section 8 of `purview_hubspot_setup.md` carries the full design, including why the second check is not the raw-count comparison this section originally specified.
+
+This is the piece almost nobody builds and it is the reason the whole thing is worth pointing at.
 
 ---
 

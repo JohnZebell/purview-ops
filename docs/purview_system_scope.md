@@ -290,6 +290,10 @@ create index on pv_intake_raw (email);
 
 This is the trigger to act, so it carries what is needed to act.
 
+Owned by n8n, at node 8. It lived in `app/notify.ts` until the pipeline could carry a deal url, and that file is gone — a notification that cannot link to the deal is not the notification this section describes.
+
+**The company line is not a company name.** It shows the website the person typed and the domain derived from their email. `company` is never written to HubSpot and stays blank until enrichment lands, so there is nothing else to show. Read that line as "where they came from", not as an identified organisation — two submissions from the same company will not agree on it, and neither value has been checked against anything.
+
 ```
 New audit intake
 

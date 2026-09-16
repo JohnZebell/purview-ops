@@ -76,6 +76,12 @@ Note that `Not sure` on CRM is itself a finding, not a missing value. Do not tre
 
 `email`, `firstname`, `lastname`, `company`, `website`, `jobtitle`, `lifecyclestage`
 
+`company` and `jobtitle` are listed but never written. The form collects neither, and enrichment — which would have supplied `company` — is deferred. See section 4.
+
+`lifecyclestage` does not keep the value we write. The pipeline sets it to `lead` on the contact, and HubSpot then advances it to `opportunity` on its own, asynchronously, once the deal association registers. Both were observed in one run: the write returned `lead`, and a read moments later returned `opportunity`.
+
+This is HubSpot's own lifecycle automation, not something the pipeline does, and it cannot be prevented from the API side. Anything that reads `lifecyclestage` has to know the written value does not survive deal creation — so it is not a field to branch on, filter a list by, or reconcile against. `pv_intake_status` is the field that means what it says.
+
 ### Custom contact properties to create
 
 | Internal name | Label | Type | Options |
@@ -219,6 +225,29 @@ Three failures have distinct recoveries and distinct paths: a double submit sets
 The HubSpot and Supabase write failures share one recorder and one alert, because their recovery is genuinely identical: retries are exhausted, the raw row already exists, a human picks it up. That path writes `error_detail` and deliberately does **not** change `status`, so the row stays visible to the verification job as stalled rather than being quietly marked resolved.
 
 Retries are n8n's `retryOnFail`, three tries at five second intervals. Fixed interval, not exponential — enough for a transient 429 or 503, which is what these actually fail with.
+
+### Zero items ends a branch, silently
+
+This is the failure mode to design against in n8n, and it is worth stating as a rule rather than as a bug that was fixed.
+
+A node that returns no items does not error. The branch simply stops, the execution is still reported as a success, and nothing downstream runs. There is no failed node to look at and no alert, because the alert was downstream too.
+
+It bit this workflow twice in the same build:
+
+- The idempotency check queries Supabase for a recent row with the same email. When there is none — the normal case — PostgREST returns `[]`, which is zero items, so the entire happy path ended at node 2 and reported success. No contact, no deal, no notification, no error.
+- Every `PATCH` returned an empty body, so each alert sitting downstream of one would never have fired. The invalid-email alert, the duplicate alert and the write-failure alert were all unreachable.
+
+So: **any node that can legitimately return nothing needs `alwaysOutputData`**, and any `PATCH` that something depends on downstream should also send `Prefer: return=representation` so the response proves the row matched.
+
+Worth recording how this survived. `n8n_validate_workflow` flagged it — *"Consider enabling alwaysOutputData on Recent submit? to capture error responses for debugging"* — on the first validation pass, and it was dismissed as generic advice because it was phrased as a debugging convenience and arrived alongside a dozen other boilerplate suggestions. It was not a debugging convenience. It was the bug, named correctly, and ignored. The validator was right and the reviewer was wrong, which is the more useful half of the lesson.
+
+It was caught only because the test read the result back from Supabase and HubSpot rather than trusting the execution status. The execution said success.
+
+### Webhook authentication
+
+The webhook uses header auth, `X-Purview-Intake`, against a credential. The route sends the same header from `N8N_INTAKE_SECRET`.
+
+It is not optional. The endpoint creates HubSpot contacts and deals from an unauthenticated POST, so without it anyone holding the URL can write to the CRM. The secret goes in a credential and never in node parameters, because parameters are stored unencrypted in the workflow JSON while credentials are encrypted at rest.
 
 ### Storage
 

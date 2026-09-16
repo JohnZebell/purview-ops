@@ -12,8 +12,6 @@ import { pageMetadata } from '../seo'
    - docs/purview_assistant_spec.md, the linking rule and the never do rule
    - docs/purview_build_instructions.md, the route table and order of work
    - docs/purview_site_restructure.md, what this does not change
-   - app/globals.css, the .appendix block, which counts the sections above
-     it
 
    Record of one pass rather than a current description:
    docs/purview_copy_pass.md. */

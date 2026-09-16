@@ -12,8 +12,6 @@ import { pageMetadata } from '../seo'
    - docs/purview_assistant_knowledge_base.md, section 11 and section 3
    - docs/purview_assistant_spec.md, the linking rule
    - docs/purview_build_instructions.md, the route table and order of work
-   - app/globals.css, the Work page banner, which counts the parts per
-     stage
 
    Record of one pass rather than a current description:
    docs/purview_copy_pass.md. */
@@ -26,7 +24,8 @@ export const metadata = pageMetadata({
 })
 
 /* Every stage runs the same parts in the same order. Cost first, because the
-   reader has to feel the number before they care about the fix.
+   reader has to feel the number before they care about the fix. Funnel math
+   is the exception: it carries one extra part on what to expect.
 
    A part is either prose or a run-in list. `muted` marks the boundary
    statement, which reads at footnote weight rather than earning its own
